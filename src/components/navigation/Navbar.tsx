@@ -4,7 +4,7 @@ import { Logo, UserIcon } from "@/components/icons/index";
 import HamburgerMenu from "./HamburgerMenu";
 import Searchbar from "./Searchbar";
 import About from "../Footer/About";
-import Contact from "../footer/Contact";
+import Contact from "../Footer/Contact";
 
 function Navbar() {
   return (
