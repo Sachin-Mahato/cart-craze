@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import useGlobalContext from "@/context/useGlobalContext";
 import { Trash } from "@/components/icons/index";
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/Footer/Footer";
 
 function Wishlist() {
   var { wishlist, removeItemFromWishlist } = useGlobalContext();
