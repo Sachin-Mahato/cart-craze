@@ -4,7 +4,7 @@
 import Image from "next/image.js";
 import useCartContext from "../../context/useCartContext";
 import { Minus, Plus, Close } from "@/components/icons/index";
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/Footer/Footer";
 import OderSummary from "@/components/OderSummary";
 
 function Cart() {
