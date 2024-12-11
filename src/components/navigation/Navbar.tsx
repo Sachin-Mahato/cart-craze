@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Logo, UserIcon } from "@/components/icons/index";
 import HamburgerMenu from "./HamburgerMenu";
 import Searchbar from "./Searchbar";
-import About from "../footer/About";
+import About from "../Footer/About";
 import Contact from "../footer/Contact";
 
 function Navbar() {
