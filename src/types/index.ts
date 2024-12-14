@@ -11,14 +11,14 @@ export type ProductsTypes = {
     rate: number | null;
     count: number | null;
   };
-  quantity?: number | null; // Added quantity property
+  quantity?: number; // Added quantity property
 };
 
 // App Context Types
 export type AppContextTypes = {
   // States
   loading: boolean;
-  products: ProductsTypes[] | string;
+  products: ProductsTypes[] | null;
   error: string | null;
   wishlist: ProductsTypes[];
   filterItemsByPrice: ProductsTypes[];

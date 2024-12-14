@@ -1,6 +1,6 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-var */
-"use client";
 import React, {
   createContext,
   useEffect,
@@ -52,7 +52,7 @@ var initialState: InitialStateTypes = {
   loading: false,
   products: [],
   error: null,
-  wishlist: JSON.parse(localStorage.getItem("wishlist") ?? "[]"),
+  wishlist: [],
   filterItemsByPrice: [],
   filterCategory: [],
 };
@@ -142,10 +142,6 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
       }
     })();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
-  }, [state.wishlist]);
 
   return (
     <AppContext.Provider

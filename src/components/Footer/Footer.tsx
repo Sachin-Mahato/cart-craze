@@ -1,4 +1,3 @@
-"use client";
 import FooterLogo from "./FooterLogo";
 import Services from "./Service";
 import SocialMedia from "./SocialMedia";

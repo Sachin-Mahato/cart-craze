@@ -1,5 +1,5 @@
-/* eslint-disable no-var */
 "use client";
+/* eslint-disable no-var */
 import useGlobalContext from "@/context/useGlobalContext";
 import Link from "next/link";
 

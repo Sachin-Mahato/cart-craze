@@ -1,9 +1,9 @@
-/* eslint-disable no-var */
 "use client";
+/* eslint-disable no-var */
 import useGlobalContext from "../../context/useGlobalContext";
 // import { HamburgerIcon } from "../../../public/icons/index";
 import CartLink from "./CartLink";
-import WishlistLink from "./WishlistLink";
+// import WishlistLink from "./WishlistLink";
 import ProductsLinks from "./ProductsLink";
 
 function HamburgerMenu() {
@@ -25,7 +25,7 @@ function HamburgerMenu() {
       >
         <div className=" flex flex-col justify-center items-center gap-4 text-xl p-4 mt-20 text-white font-semibold z-50">
           <CartLink />
-          <WishlistLink />
+          {/* <WishlistLink /> */}
           <ProductsLinks />
         </div>
       </div>

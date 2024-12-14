@@ -1,10 +1,9 @@
-"use client";
 import Link from "next/link";
 import { Logo, UserIcon } from "@/components/icons/index";
 import HamburgerMenu from "./HamburgerMenu";
 import Searchbar from "./Searchbar";
-import About from "../Footer/About";
-import Contact from "../Footer/Contact";
+import About from "@/components/Footer/About";
+import Contact from "@/components/Footer/Contact";
 
 function Navbar() {
   return (
@@ -60,14 +59,7 @@ function Navbar() {
               </svg>
             </div>
           </Link>
-          <div
-            className="cursor-pointer"
-            onClick={() =>
-              alert(
-                `This feature is currently in development and will be available soon.`
-              )
-            }
-          >
+          <div>
             <UserIcon />
           </div>
         </div>

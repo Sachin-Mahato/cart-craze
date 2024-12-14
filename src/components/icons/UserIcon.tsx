@@ -1,7 +1,14 @@
 "use client";
-function UserIcon() {
+export default function UserIcon() {
   return (
-    <div>
+    <div
+      className="cursor-pointer"
+      onClick={() =>
+        alert(
+          `This feature is currently in development and will be available soon.`
+        )
+      }
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -19,5 +26,3 @@ function UserIcon() {
     </div>
   );
 }
-
-export default UserIcon;

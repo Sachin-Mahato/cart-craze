@@ -1,34 +1,22 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-var */
-"use client";
-import { useEffect, useState } from "react";
 import { ProductsTypes } from "../types/index";
 import ProductsList from "./ProductsList";
+const URL = "https://fakestoreapi.com/products?limit=8";
 
-function Products() {
-  var [listProducts, setListProducts] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const url = "https://fakestoreapi.com/products?limit=8";
-      try {
-        let response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`error in getting response ${response}`);
-        }
-        let data = await response.json();
-        setListProducts(data);
-      } catch (error) {
-        console.log(`error in fetching Homepage products: ${error}`);
-      }
-    })();
-  }, []);
-
+export default async function Products() {
+  try {
+    var data = await fetch(URL);
+    var products = await data.json();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    console.log(`error in products:${error}`);
+  }
   return (
     <div className="font-[sans-serif] bg-white my-4 lg:mx-40">
       <section className="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6">
-          {listProducts.map((product: ProductsTypes, idx) => (
+          {products.map((product: ProductsTypes, idx: number) => (
             <div key={idx}>
               <ProductsList item={product} />
             </div>
@@ -38,5 +26,3 @@ function Products() {
     </div>
   );
 }
-
-export default Products;

@@ -1,4 +1,5 @@
 /* eslint-disable no-var */
+"use client";
 import useCartContext from "../context/useCartContext";
 
 function OderSummary() {

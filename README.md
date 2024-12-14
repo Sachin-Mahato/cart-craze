@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cart-Craze
 
-## Getting Started
+Cart-Craze is a portfolio project showcasing my skills in building a responsive e-commerce website using **Next.js**, **Tailwind CSS**, and **MongoDB**. The project includes features like product filtering, cart and wishlist management, and dynamic price calculations.
 
-First, run the development server:
+Live demo: [Cart-Craze](https://cart-craze.netlify.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Technologies Used:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js** for server-side rendering and API routes.
+- **Tailwind CSS** for responsive and utility-first styling.
+- **MongoDB** for storing cart and wishlist data.
+- **React** for building the UI components.
+- **Axios** for API requests.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Key Features:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Filter products by category and price.
+2. Add items to a wishlist or shopping cart.
+3. Fully responsive design for all screen sizes.
+4. Single-page application (SPA) with smooth navigation.
 
-## Learn More
+### Installation (Optional):
 
-To learn more about Next.js, take a look at the following resources:
+To run the project locally:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repo: `git clone https://github.com/your-username/cart-craze.git`
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Screenshots:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Cart-Craze Screenshot](path-to-screenshot.png)
