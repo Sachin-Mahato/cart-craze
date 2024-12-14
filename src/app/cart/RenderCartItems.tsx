@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 "use client";
 import { Minus, Plus, Close } from "@/components/icons/index";
 import ItemSummary from "./ItemSummary";

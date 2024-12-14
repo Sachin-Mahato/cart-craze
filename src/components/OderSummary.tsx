@@ -1,5 +1,3 @@
-/* eslint-disable no-var */
-
 function OderSummary() {
   return (
     <section className="mx-2">

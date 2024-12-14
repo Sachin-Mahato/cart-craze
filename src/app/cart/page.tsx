@@ -1,5 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-var */
 import Footer from "@/components/Footer/Footer";
 import OderSummary from "@/components/OderSummary";
 import RenderCartItems from "./RenderCartItems";

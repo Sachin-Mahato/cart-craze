@@ -1,9 +1,8 @@
-/* eslint-disable no-var */
 "use client";
 import useGlobalContext from "@/context/useGlobalContext";
 import ProductsList from "@/components/ProductsList";
 export default function RenderProduct() {
-  var { products } = useGlobalContext();
+  const { products } = useGlobalContext();
   return (
     <section className="grid grid-cols-2 gap-4 place-items-center mt-6 lg:grid-cols-4">
       {products && products?.length > 0 ? (

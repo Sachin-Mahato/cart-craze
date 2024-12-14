@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 import SortByOptions from "@/components/filters/SortByOptions";
 import PriceFilter from "@/components/filters/filterByPrice";
 import CategoryFilter from "@/components/filters/FilterProductsCategory";

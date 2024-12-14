@@ -1,6 +1,4 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-var */
 import React, { createContext, useReducer, useRef, useState } from "react";
 import reducer from "./reducer";
 import {
@@ -12,7 +10,7 @@ import {
   SELECT_CATEGORY,
 } from "./actionTypes";
 import { AppContextTypes, InitialStateTypes } from "../types/index.js";
-var defaultAppContext: AppContextTypes = {
+const defaultAppContext: AppContextTypes = {
   loading: false,
   products: [],
   error: null,
@@ -36,9 +34,9 @@ var defaultAppContext: AppContextTypes = {
   priceRef: { current: null },
 };
 
-var AppContext = createContext<AppContextTypes>(defaultAppContext);
+const AppContext = createContext<AppContextTypes>(defaultAppContext);
 
-var initialState: InitialStateTypes = {
+const initialState: InitialStateTypes = {
   loading: false,
   products: [],
   error: null,
@@ -48,13 +46,13 @@ var initialState: InitialStateTypes = {
 };
 
 function AppContextProvider({ children }: { children: React.ReactNode }) {
-  var [state, dispatch] = useReducer(reducer, initialState);
-  var [isMenuOpen, setIsMenuOpen] = useState(false);
-  var [selectValue, setSelectValue] = useState("");
-  var [range, setRange] = useState(5);
-  var selectRef = useRef(null);
-  var wishlistRef = useRef(null);
-  var priceRef = useRef(5);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectValue, setSelectValue] = useState("");
+  const [range, setRange] = useState(5);
+  const selectRef = useRef(null);
+  const wishlistRef = useRef(null);
+  const priceRef = useRef(5);
 
   function removeItemFromWishlist(id: number) {
     dispatch({ type: REMOVE_ITEM_WISHLIST, payload: id });
@@ -77,7 +75,7 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
   }
 
   function sliceByPrice(evt: React.ChangeEvent<HTMLInputElement>) {
-    var selectVal = (evt.target as HTMLInputElement).value;
+    const selectVal = (evt.target as HTMLInputElement).value;
     setRange(Number(selectVal));
     dispatch({ type: SLICE_ITEMS, payload: Number(selectVal) });
   }

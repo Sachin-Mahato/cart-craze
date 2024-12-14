@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 "use client";
 import { ProductsTypes } from "@/types";
 import axios from "axios";
