@@ -1,19 +1,9 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-var */
-import React, {
-  createContext,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext, useReducer, useRef, useState } from "react";
 import reducer from "./reducer";
-import fetchAllProducts from "@/service/fetchData";
 import {
-  FETCH_PRODUCTS_ERROR,
-  FETCH_PRODUCTS_START,
-  FETCH_PRODUCTS_SUCCESS,
   REMOVE_ITEM_WISHLIST,
   WISHLIST,
   POPULARITY_SORT,
@@ -108,40 +98,6 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
       dispatch({ type: SELECT_CATEGORY, payload: selectCate });
     }
   }
-
-  useEffect(() => {
-    (async () => {
-      dispatch({
-        type: FETCH_PRODUCTS_START,
-        payload: {
-          loading: true,
-          error: null,
-        },
-      });
-      try {
-        const getAllProducts = await fetchAllProducts();
-        dispatch({
-          type: FETCH_PRODUCTS_SUCCESS,
-          payload: {
-            loading: false,
-            error: null,
-            products: getAllProducts,
-            filterItemsByPrice: getAllProducts,
-            filterCategory: getAllProducts,
-          },
-        });
-      } catch (error) {
-        dispatch({
-          type: FETCH_PRODUCTS_ERROR,
-          payload: {
-            loading: false,
-            error: error instanceof Error ? error.message : String(error), // Safely handle error
-          },
-        });
-        console.error(`error in fetching all products ${error}`);
-      }
-    })();
-  }, []);
 
   return (
     <AppContext.Provider

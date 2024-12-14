@@ -1,9 +1,6 @@
-import useCartContext from "@/context/useCartContext";
-
-const Close = ({ itemId }: { itemId: number }) => {
-  const { removeItem } = useCartContext();
+const Close = () => {
   return (
-    <div className="cursor-pointer" onClick={() => removeItem(itemId)}>
+    <div className="cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

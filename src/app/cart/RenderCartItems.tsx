@@ -32,7 +32,7 @@ export default function RenderCartItems() {
       }
     })();
   }, []);
-   const items = cartData?.items || [];
+  const items = cartData?.items || [];
   return items ? (
     items.map((item: ItemsTypes) => (
       <section key={item.id} className="flex gap-4 justify-around items-center">
@@ -48,7 +48,7 @@ export default function RenderCartItems() {
             </div>
             <div className="flex gap-2 justify-around items-center w-full">
               <p className="text-[1.5rem]">${item.price}</p>
-              <Close itemId={item.id} />
+              <Close />
             </div>
           </div>
         </section>

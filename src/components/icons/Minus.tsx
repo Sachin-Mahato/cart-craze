@@ -1,9 +1,7 @@
-import useCartContext from "@/context/useCartContext";
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const Minus = ({ itemId }: { itemId: number }) => {
-  const { decreaseQuantity } = useCartContext();
   return (
-    <div onClick={() => decreaseQuantity(itemId)}>
+    <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

@@ -1,12 +1,8 @@
-import useCartContext from "@/context/useCartContext";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const Plus = ({ itemId }: { itemId: number }) => {
-  const { increaseQuantity } = useCartContext();
   return (
-    <div
-      className="cursor-pointer w-6 h-6"
-      onClick={() => increaseQuantity(itemId)}
-    >
+    <div className="cursor-pointer w-6 h-6">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

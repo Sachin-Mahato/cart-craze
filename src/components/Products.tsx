@@ -1,17 +1,11 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-var */
 import { ProductsTypes } from "../types/index";
 import ProductsList from "./ProductsList";
 const URL = "https://fakestoreapi.com/products?limit=8";
 
+export const revalidate = 60;
 export default async function Products() {
-  try {
-    var data = await fetch(URL);
-    var products = await data.json();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    console.log(`error in products:${error}`);
-  }
+  const data = await fetch(URL);
+  const products = await data.json();
   return (
     <div className="font-[sans-serif] bg-white my-4 lg:mx-40">
       <section className="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
