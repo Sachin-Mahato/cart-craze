@@ -21,6 +21,25 @@ interface CartData {
 export default function RenderCartItems() {
   const [cartData, setCartData] = useState<CartData | null>(null);
 
+  async function deleteItem(id: number) {
+    const data = [...(cartData?.items ?? [])];
+    setCartData((prev) => ({
+      ...prev!,
+      items: prev!.items.filter((item) => item._id !== id),
+    }));
+    try {
+      await axios.delete(`/api/cart/delete?id=${id}`);
+    } catch (error) {
+      console.error(`error in deleting item: ${error}`);
+      //  revert the UI if the DELETE request fails
+      setCartData((prev) => ({
+        ...prev!,
+        items: data,
+      }));
+    }
+  }
+
+  const items = cartData?.items || [];
   useEffect(() => {
     (async () => {
       try {
@@ -31,7 +50,7 @@ export default function RenderCartItems() {
       }
     })();
   }, []);
-  const items = cartData?.items || [];
+
   return items ? (
     items.map((item: ItemsTypes) => (
       <section key={item.id} className="flex gap-4 justify-around items-center">
@@ -47,7 +66,9 @@ export default function RenderCartItems() {
             </div>
             <div className="flex gap-2 justify-around items-center w-full">
               <p className="text-[1.5rem]">${item.price}</p>
-              <Close />
+              <button type="button" onClick={() => deleteItem(item._id)}>
+                <Close />
+              </button>
             </div>
           </div>
         </section>

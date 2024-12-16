@@ -28,13 +28,13 @@ export type AppContextTypes = {
   range: number;
 
   // Functions
-  toggleClickHandler: () => void;
-  wishlistHandler: (id: number) => void;
-  sortByPopularity: (value: string) => void;
-  selectClickHandler: (selectRef: React.RefObject<HTMLSelectElement>) => void;
-  removeItemFromWishlist: (id: number) => void;
-  sliceByPrice: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  selectCategory: (evt: React.MouseEvent<HTMLDivElement> | any) => void;
+  // toggleClickHandler: () => void;
+  // wishlistHandler: (id: number) => void;
+  // sortByPopularity: (value: string) => void;
+  // selectClickHandler: (selectRef: React.RefObject<HTMLSelectElement>) => void;
+  // removeItemFromWishlist: (id: number) => void;
+  // sliceByPrice: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  // selectCategory: (evt: React.MouseEvent<HTMLDivElement> | any) => void;
 
   // Refs
   selectRef: any;
@@ -44,34 +44,9 @@ export type AppContextTypes = {
 
 // Cart Context
 
-export type CartStateTypes = {
-  cart: ProductsTypes[];
-  total: number;
-  quantity: number;
-};
+;
 
-export type CartActionTypes =
-  | { type: "ADD_TO_CART"; payload: ProductsTypes }
-  | { type: "REMOVE_ITEM"; payload: number | string }
-  | { type: "INCREASE_QUANTITY"; payload: number }
-  | { type: "DECREASE_QUANTITY"; payload: number }
-  | { type: "TOTAL" }
-  | { type: "CLEAR_CART" }; // For clearing the cart
 
-export type CartReducerTypes = (
-  state: CartStateTypes,
-  action: CartActionTypes
-) => CartStateTypes;
-export type CartContextTypes = {
-  addToCart: (item: ProductsTypes) => void;
-  clearCart: () => void;
-  removeItem: (id: number | string) => void;
-  increaseQuantity: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
-
-  state: CartStateTypes;
-  dispatch: React.Dispatch<CartActionTypes>;
-};
 
 // Initial State Types
 export type InitialStateTypes = {

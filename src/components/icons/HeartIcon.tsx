@@ -1,41 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-import { useRef, useState } from "react";
-import useGlobalContext from "@/context/useGlobalContext";
-
-function HeartIcon({ itemId }: { itemId: number }) {
-  const { wishlistHandler, removeItemFromWishlist } = useGlobalContext();
-  const wishlistRef = useRef<any>("");
-  const [isTrue, setIsTrue] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  function refHandler() {
-    if (!isTrue) {
-      setIsTrue(true);
-      wishlistHandler(itemId);
-      wishlistRef.current.style.stroke = "red";
-      wishlistRef.current.style.fill = "red";
-    } else {
-      setIsTrue(false);
-      removeItemFromWishlist(itemId);
-      wishlistRef.current.style.stroke = "";
-      wishlistRef.current.style.fill = "";
-    }
-  }
-
+function HeartIcon() {
   return (
-    <button
-      onClick={() => setIsFavorite(!isFavorite)}
-      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-    >
-      <div
-        className={`h-6 w-6 transition-colors ${
-          isFavorite ? "fill-red-500 stroke-red-500" : "stroke-gray-400"
-        }`}
-      >
+    <button>
+      <div className={`h-6 w-6 transition-colors`}>
         <svg
-          ref={wishlistRef}
-          onClick={refHandler}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

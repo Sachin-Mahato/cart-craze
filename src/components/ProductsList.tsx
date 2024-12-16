@@ -12,7 +12,7 @@ export default function ProductCard({ item }: ProductsListProps) {
     <div className="flex flex-col justify-between w-[180px] h-[320px] bg-[#F6F6F6] shadow-lg rounded-lg overflow-hidden lg:w-[200px] lg:h-[360px] border border-gray-200">
       {/* Heart Icon Section */}
       <div className="w-full flex justify-end p-2">
-        <HeartIcon itemId={item.id} />
+        <HeartIcon />
       </div>
 
       {/* Product Image */}

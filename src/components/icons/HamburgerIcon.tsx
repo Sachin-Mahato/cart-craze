@@ -1,6 +1,4 @@
-import useGlobalContext from "@/context/useGlobalContext";
 function HamburgerIcon() {
-  const { isMenuOpen } = useGlobalContext();
   return (
     <div>
       <svg
@@ -9,7 +7,7 @@ function HamburgerIcon() {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className={`size-8 ${isMenuOpen ? "stroke-white" : ""}`}
+        className={`size-8 $`}
       >
         <path
           strokeLinecap="round"
