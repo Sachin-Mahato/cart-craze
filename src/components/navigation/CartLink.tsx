@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 import Link from "next/link";
 import { CartIcon } from "../icons/index";
 
