@@ -4,79 +4,59 @@ import dbConfig from "@/dbConfig/dbConfig";
 import Cart from "@/models/cartModel";
 
 dbConfig();
+export async function PATCH(req: NextRequest, context: any) {
+  const { params } = await context; // Extract params from context
+  const { id } = await params; // Extract ID inside the function body
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = await params;
-
-  // Log the incoming request for debugging
   console.log("PATCH request received for ID:", id);
 
-  let body;
   try {
-    // Parse the body of the request
-    body = await req.json();
+    const body = await req.json(); // Parse the request body
     console.log("Request body:", body);
 
-    const { quantity } = body; // Destructure quantity from body
+    const { quantity } = body; // Destructure quantity from the body
 
-    if (!quantity) {
-      console.log("Missing quantity in request body");
+    if (quantity == null) {
+      // Validate quantity presence
       return NextResponse.json(
-        {
-          success: false,
-          message: "Quantity is required to update the item",
-        },
+        { success: false, message: "Quantity is required to update the item" },
         { status: 400 }
       );
     }
 
-    // Find the item by ID and update it
+    // Find the item by ID
     const existingItem = await Cart.findById(id);
-
     if (!existingItem) {
-      console.log(`Item with ID ${id} not found`);
       return NextResponse.json(
-        {
-          success: false,
-          message: `Item with ID ${id} not found`,
-        },
+        { success: false, message: `Item with ID ${id} not found` },
         { status: 404 }
       );
     }
 
-    const updateItem = await Cart.updateOne(
-      { _id: id }, // Filter by the ID
-      { $set: { quantity } } // Update the quantity
+    // Update the item's quantity
+    const updateResult = await Cart.updateOne(
+      { _id: id },
+      { $set: { quantity } }
     );
 
-    // Log the update result
-    console.log("Item updated:", updateItem);
-
-    if (updateItem.modifiedCount > 0) {
+    if (updateResult.modifiedCount > 0) {
       return NextResponse.json({
         success: true,
         message: `Item with ID ${id} updated successfully`,
         updatedValues: { quantity },
       });
     } else {
-      console.log("No changes made to the item");
       return NextResponse.json(
-        {
-          success: false,
-          message: `Item with ID ${id} already has the same quantity`,
-        },
+        { success: false, message: "No changes were made to the item" },
         { status: 304 }
       );
     }
   } catch (error) {
-    console.error("Error processing request:", error);
+    console.error("Error processing PATCH request:", error);
     return NextResponse.json(
       {
         success: false,
-        message: "An error occurred while processing the request",
+        message: "An error occurred during the update process",
       },
       { status: 500 }
     );
