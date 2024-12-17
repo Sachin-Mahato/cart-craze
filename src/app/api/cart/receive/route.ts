@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConfig from "@/dbConfig/dbConfig";
+import { dbConfig } from "@/dbConfig/dbConfig";
 import Cart from "@/models/cartModel";
 
 dbConfig();
