@@ -1,27 +1,14 @@
 "use client";
 import { Minus, Plus, Close } from "@/components/icons/index";
 import ItemSummary from "./ItemSummary";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useCartContext } from "@/context/CartContext";
 import axios from "axios";
 
-interface ItemsTypes {
-  id: number;
-  image: string;
-  price: number;
-  quantity: number;
-  title: string;
-  __v: number;
-  _id: number;
-}
-
-interface CartData {
-  items: ItemsTypes[];
-}
-
 export default function RenderCartItems() {
-  const [cartData, setCartData] = useState<CartData | null>(null);
+  const { cartData, setCartData } = useCartContext();
 
-  async function deleteItem(id: number) {
+  async function deleteItemFromCart(id: number) {
     const data = [...(cartData?.items ?? [])];
     setCartData((prev) => ({
       ...prev!,
@@ -38,7 +25,7 @@ export default function RenderCartItems() {
       }));
     }
   }
-  async function increaseQuantity(id: number) {
+  async function increaseItemQuantity(id: number) {
     try {
       // Update cartData locally , UI
       setCartData((prev) => ({
@@ -79,9 +66,9 @@ export default function RenderCartItems() {
   }, []);
 
   return items ? (
-    items.map((item: ItemsTypes) => (
+    items.map((item) => (
       <section key={item.id} className="flex gap-4 justify-around items-center">
-        <ItemSummary title={item.title} imageUrl={item.image} id={item._id} />
+        <ItemSummary title={item.title} imageUrl={item.image} id={item._id!} />
         <section className="flex flex-col gap-2">
           <div className="flex gap-2 justify-around items-center">
             <div className="flex justify-around items-center w-full">
@@ -90,13 +77,16 @@ export default function RenderCartItems() {
               <div className="border-solid h-6 w-6 text-center border-gray-400 border-2">
                 <p className="font-semibold">{item.quantity}</p>
               </div>
-              <div onClick={() => increaseQuantity(item._id)}>
+              <div onClick={() => increaseItemQuantity(item._id!)}>
                 <Plus itemId={item.id} />
               </div>
             </div>
             <div className="flex gap-2 justify-around items-center w-full">
               <p className="text-[1.5rem]">${item.price}</p>
-              <button type="button" onClick={() => deleteItem(item._id)}>
+              <button
+                type="button"
+                onClick={() => deleteItemFromCart(item._id!)}
+              >
                 <Close />
               </button>
             </div>
