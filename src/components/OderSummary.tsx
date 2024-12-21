@@ -1,5 +1,18 @@
 "use client";
+import { useCartContext } from "@/context/CartContext";
 function OderSummary() {
+    const { cartData } = useCartContext();
+
+    const getTotal = cartData?.items.reduce((total, item) => {
+        return total + item.quantity * item.price;
+    }, 0) || 0; // Default to 0 if cartData or items is undefined
+
+    const taxRate = 0.05; // Example: 5% tax
+    const shippingRate = 0.05; // Example: 5% shipping cost
+
+    const tax = getTotal * taxRate;
+    const shippingCost = getTotal * shippingRate;
+    const total = getTotal + tax + shippingCost;
 
 
     return (
@@ -11,19 +24,19 @@ function OderSummary() {
                 <article className="flex flex-col gap-4 mx-2 ">
                     <div className="flex justify-between items-center">
                         <h3 className="capitalize font-semibold">subtotal</h3>
-                        <p>${"total"}</p>
+                        <p>${getTotal}</p>
                     </div>
                     <div className="flex justify-between items-center">
                         <p>Estimate Tax</p>
-                        <p>${"tax"}</p>
+                        <p>${tax.toFixed(2)}</p>
                     </div>
                     <div className="flex justify-between items-center">
                         <p>Estimate shipping & handling</p>
-                        <p>${"shippingCost.toFixed(2)"}</p>
+                        <p>${shippingCost.toFixed(2)}</p>
                     </div>
                     <div className="flex justify-between items-center">
                         <p className="font-semibold">Total</p>
-                        <div className="font-semibold">${"totalCost"}</div>
+                        <div className="font-semibold">${total.toFixed(2)}</div>
                     </div>
                 </article>
                 <div className="w-full mt-12 mb-14 text-center">

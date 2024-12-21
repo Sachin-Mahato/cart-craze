@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     await dbConfig();
     try {
         const reqBody = await request.json();
-        console.log("reqBody", reqBody);
+        //        console.log("reqBody", reqBody);
         const { id, title, image, quantity, price, description, rating } =
             reqBody;
         const item = await Cart.findOne({ id });
