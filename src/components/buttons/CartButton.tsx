@@ -29,7 +29,7 @@ function CartButton({ item }: { item: ProductsTypes }) {
         try {
             const response = await axios.post("/api/cart/send", cartItem);
             console.log(`item send successfully`);
-            return response;
+            return response.data;
         } catch (error) {
             console.log(`error in sending cart item: ${error}`);
         }

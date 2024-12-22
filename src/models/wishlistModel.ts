@@ -16,6 +16,6 @@ const wishlistSchema = new Schema<Wishlist>({
 
 const WishlistModel =
     (mongoose.models.Wishlist as mongoose.Model<Wishlist>) ||
-    mongoose.model<Wishlist>("Cart", wishlistSchema);
+    mongoose.model<Wishlist>("Wishlist", wishlistSchema);
 
 export default WishlistModel;

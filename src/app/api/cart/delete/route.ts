@@ -19,7 +19,7 @@ export async function DELETE(req: NextRequest) {
         const deleteItem = await Cart.deleteOne({
             _id: new mongoose.Types.ObjectId(id),
         });
-        // console.log("Delete Result:", deleteItem);
+        console.log("Delete Result:", deleteItem);
 
         if (deleteItem.deletedCount === 0) {
             return NextResponse.json(

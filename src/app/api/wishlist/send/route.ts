@@ -7,9 +7,9 @@ export async function POST(request: Request) {
         const reqBody = await request.json();
         //        console.log("reqBody", reqBody);
         const { id, title, image, price } = reqBody;
-        const item = await Wishlist.findOne({ id });
+        const wishlistItem = await Wishlist.findOne({ id });
 
-        if (item) {
+        if (wishlistItem) {
             return Response.json(
                 { error: "cart item already exists" },
                 { status: 400 }
