@@ -27,6 +27,3 @@ To run the project locally:
 2. Install dependencies: `npm install`
 3. Run the development server: `npm run dev`
 
-### Screenshots:
-
-![Cart-Craze Screenshot](path-to-screenshot.png)
