@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import Cart from "@/models/cartModel";
 
 export async function GET() {
-    await dbConfig();
+    await dbConnect();
     try {
         const items = await Cart.find();
 

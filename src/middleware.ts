@@ -1,26 +1,43 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-export { default } from "next-auth/middleware";
 import { getToken } from "next-auth/jwt";
 
-// This function can be marked `async` if using `await` inside
+export { default } from "next-auth/middleware";
+
 export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request });
     const url = request.nextUrl;
 
+    // Allow access to sign-in, sign-up, and verify if the user is not authenticated
+    if (
+        !token &&
+        (url.pathname.startsWith("/sign-in") ||
+            url.pathname.startsWith("/sign-up") ||
+            url.pathname.startsWith("/verify"))
+    ) {
+        return NextResponse.next(); // Allow the request to continue
+    }
+
+    // Redirect authenticated users from auth pages to dashboard
     if (
         token &&
         (url.pathname.startsWith("/sign-in") ||
             url.pathname.startsWith("/sign-up") ||
-            url.pathname.startsWith("/verify") ||
-            url.pathname.startsWith("/"))
+            url.pathname.startsWith("/verify"))
     ) {
         return NextResponse.redirect(new URL("/dashboard", request.url));
     }
-    return NextResponse.redirect(new URL("/home", request.url));
+
+    // Redirect unauthenticated users accessing restricted pages to /home
+    if (!token && url.pathname.startsWith("/dashboard")) {
+        return NextResponse.redirect(new URL("/home", request.url));
+    }
+
+    // Allow all other requests
+    return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// Matching paths
 export const config = {
     matcher: [
         "/sign-in",

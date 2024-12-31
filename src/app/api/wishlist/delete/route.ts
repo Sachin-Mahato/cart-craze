@@ -1,10 +1,10 @@
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import Wishlist from "@/models/wishlistModel";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(req: NextRequest) {
-    await dbConfig();
+    await dbConnect();
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 

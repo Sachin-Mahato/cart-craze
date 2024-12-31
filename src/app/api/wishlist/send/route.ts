@@ -1,8 +1,8 @@
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import Wishlist from "@/models/wishlistModel";
 
 export async function POST(request: Request) {
-    await dbConfig();
+    await dbConnect();
     try {
         const reqBody = await request.json();
         //        console.log("reqBody", reqBody);

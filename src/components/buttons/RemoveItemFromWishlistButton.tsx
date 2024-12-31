@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Trash } from "@/components/icons/index";
+import { Trash } from "lucide-react";
 import { useWishlistContext } from "@/context/WishlistContext";
 
 export default function RemoveItemFromWishlistButton({ id }: { id: number }) {

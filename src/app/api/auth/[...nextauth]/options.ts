@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import bcrypt from "bcryptjs";
 import UserModel from "@/models/userModel";
 
@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "text" },
             },
             async authorize(credentials: any): Promise<any> {
-                await dbConfig();
+                await dbConnect();
 
                 try {
                     const user = await UserModel.findOne({

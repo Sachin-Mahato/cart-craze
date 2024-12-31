@@ -1,8 +1,8 @@
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import UserModel from "@/models/userModel";
 
 export async function POST(request: Request) {
-    await dbConfig();
+    await dbConnect();
     try {
         const { username, code } = await request.json();
         // safely

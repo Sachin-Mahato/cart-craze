@@ -1,12 +1,11 @@
-import { ChevronDownIcon } from "../icons/index";
-
+import { ChevronDown } from "lucide-react";
 export default function PriceByFilter() {
     return (
         <div className="hidden lg:block">
             <div className="w-full flex gap-12">
                 <p className=" capitalize font-semibold">price</p>
                 <div>
-                    <ChevronDownIcon />
+                    <ChevronDown />
                 </div>
             </div>
         </div>

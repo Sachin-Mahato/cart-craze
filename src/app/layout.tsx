@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/navigation/Navbar";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
+import AuthProvider from "@/context/AuthProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -28,16 +30,19 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                <CartProvider>
-                    <WishlistProvider>
-                        <Navbar />
-                        {children}
-                    </WishlistProvider>
-                </CartProvider>
-            </body>
+            <AuthProvider>
+                <body
+                    className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                >
+                    <CartProvider>
+                        <WishlistProvider>
+                            <Navbar />
+                            {children}
+                            <Toaster />
+                        </WishlistProvider>
+                    </CartProvider>
+                </body>
+            </AuthProvider>
         </html>
     );
 }

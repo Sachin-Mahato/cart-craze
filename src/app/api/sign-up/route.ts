@@ -1,10 +1,10 @@
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import UserModel from "@/models/userModel";
 import bcryptjs from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 
 export async function POST(req: Request) {
-    await dbConfig();
+    await dbConnect();
     try {
         const {
             username,

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
-import { dbConfig } from "@/dbConfig/dbConfig";
+import { dbConnect } from "@/dbConfig/dbConnect";
 import Cart from "@/models/cartModel";
 
 export async function PATCH(req: NextRequest, context: any) {
-    await dbConfig();
+    await dbConnect();
     const { params } = await context; // Extract params from context
     const { id } = await params; // Extract ID inside the function body
 
