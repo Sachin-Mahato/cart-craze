@@ -14,9 +14,7 @@ import Twitter from "./Twitter";
 import Women from "./Women";
 import HamburgerIcon from "./HamburgerIcon";
 import HeartIcon from "./HeartIcon";
-import CartIcon from "./CartIcon";
 import FilterIcon from "./filterIcon";
-import UserIcon from "./UserIcon";
 import Logo from "./Logo";
 import WishListIcon from "./WishListIcon";
 import CategoryIcons from "./CategoryIcons";
@@ -38,9 +36,7 @@ export {
     Women,
     HamburgerIcon,
     HeartIcon,
-    CartIcon,
     FilterIcon,
-    UserIcon,
     Logo,
     WishListIcon,
     CategoryIcons,

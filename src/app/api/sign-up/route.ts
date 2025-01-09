@@ -3,15 +3,16 @@ import UserModel from "@/models/userModel";
 import bcryptjs from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 
+type UserCredentials = {
+    username: string;
+    password: string;
+    email: string;
+};
+
 export async function POST(req: Request) {
     await dbConnect();
     try {
-        const {
-            username,
-            email,
-            password,
-        }: { username: string; password: string; email: string } =
-            await req.json();
+        const { username, email, password }: UserCredentials = await req.json();
         const existingUserVerifiedByUsername = await UserModel.findOne({
             username,
             isVerified: true,
@@ -61,9 +62,7 @@ export async function POST(req: Request) {
                 password: hashedPassword,
                 verifyCode,
                 verifyCodeExpiry: expiryDate,
-                isAcceptingMessage: true,
                 isVerified: false,
-                messages: [],
             });
             await newUser.save();
         }
@@ -74,6 +73,8 @@ export async function POST(req: Request) {
             username,
             verifyCode
         );
+
+        console.log(emailResponse.message);
 
         if (!emailResponse.success) {
             return Response.json(

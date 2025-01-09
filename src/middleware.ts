@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
             url.pathname.startsWith("/sign-up") ||
             url.pathname.startsWith("/verify"))
     ) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
+        return NextResponse.redirect(new URL("/products", request.url));
     }
 
     // Redirect unauthenticated users accessing restricted pages to /home
@@ -39,11 +39,5 @@ export async function middleware(request: NextRequest) {
 
 // Matching paths
 export const config = {
-    matcher: [
-        "/sign-in",
-        "/sign-up",
-        "/",
-        "/dashboard/:path*",
-        "/verify/:path*",
-    ],
+    matcher: ["/sign-in", "/sign-up", "/", "/verify/:path*"],
 };

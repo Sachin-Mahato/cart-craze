@@ -101,7 +101,7 @@ export default function Page() {
                                     <FormLabel>Username</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="username"
+                                            placeholder="Username"
                                             {...field}
                                             onChange={(e) => {
                                                 field.onChange(e);
@@ -115,7 +115,10 @@ export default function Page() {
 
                                     <p
                                         className={`text-sm ${
-                                            userMessage === "Username is unique"
+                                            userMessage ===
+                                                "Username is unique" ||
+                                            userMessage ===
+                                                "Username is available"
                                                 ? "text-green-500"
                                                 : "text-red-500"
                                         }`}

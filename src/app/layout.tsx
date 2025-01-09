@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/navigation/Navbar";
+// import Navbar from "@/components/navigation/Navbar";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import AuthProvider from "@/context/AuthProvider";
@@ -36,7 +36,7 @@ export default function RootLayout({
                 >
                     <CartProvider>
                         <WishlistProvider>
-                            <Navbar />
+                            {/* <Navbar /> */}
                             {children}
                             <Toaster />
                         </WishlistProvider>

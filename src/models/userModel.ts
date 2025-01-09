@@ -37,6 +37,7 @@ const UserSchema: Schema<User> = new Schema({
     },
 
     verifyCode: {
+        type: String,
         required: [true, "verify code is required"],
     },
 

@@ -11,7 +11,8 @@ interface wishlistItemTypes {
 }
 
 export default function WishlistButton({ item }: { item: wishlistItemTypes }) {
-    const [isAdded, setIsAdded] = useState(false); 
+    const [isAdded, setIsAdded] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { id, image, title, price } = item;
     const wishlistItem: wishlistItemTypes = {
         id,
@@ -20,19 +21,26 @@ export default function WishlistButton({ item }: { item: wishlistItemTypes }) {
         price,
     };
 
+    if (loading) {
+        return null;
+    }
+
     async function onItemSend() {
+        setLoading(true);
         try {
             const response = await axios.post(
                 "/api/wishlist/send",
                 wishlistItem
             );
-            setIsAdded((prev) => !prev); 
+            setIsAdded((prev) => !prev);
             console.log(
                 `Item ${isAdded ? "removed from" : "added to"} wishlist`
             );
             return response.data;
         } catch (error) {
             console.error(`Error updating wishlist: ${error}`);
+        } finally {
+            setLoading(false);
         }
     }
 

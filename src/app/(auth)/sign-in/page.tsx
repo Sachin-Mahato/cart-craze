@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema } from "@/schemas/signUpSchema";
 import {
     FormControl,
     FormField,
@@ -27,7 +26,7 @@ export default function Page() {
     const router = useRouter();
 
     const form = useForm<z.infer<typeof signInSchema>>({
-        resolver: zodResolver(signUpSchema),
+        resolver: zodResolver(signInSchema),
         defaultValues: {
             identifier: "",
             password: "",
@@ -35,37 +34,52 @@ export default function Page() {
     });
 
     const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-        const result = await signIn("credentials", {
-            redirect: false,
-            identifier: data.identifier,
-            password: data.password,
-        });
+        setIsSubmitting(true);
+        try {
+            const result = await signIn("credentials", {
+                redirect: false,
+                identifier: data.identifier,
+                password: data.password,
+            });
 
-        if (result?.error) {
-            //TODO:  double check
-            // toast({
-            //     title: "Login failed",
-            //     description: "Incorrect username or password",
-            //     variant: "destructive",
-            // });
+            if (result?.error) {
+                //TODO:  double check
+                // toast({
+                //     title: "Login failed",
+                //     description: "Incorrect username or password",
+                //     variant: "destructive",
+                // });
 
-            if (result.error === "CredentialsSignin") {
-                toast({
-                    title: "Login failed",
-                    description: "Incorrect username or password",
-                    variant: "destructive",
-                });
-            } else {
-                toast({
-                    title: "Error",
-                    description: result.error,
-                    variant: "destructive",
-                });
+                if (result.error === "CredentialsSignin") {
+                    toast({
+                        title: "Login failed",
+                        description: "Incorrect username or password",
+                        variant: "destructive",
+                    });
+                } else {
+                    toast({
+                        title: "Error",
+                        description: result.error,
+                        variant: "destructive",
+                    });
+                }
             }
-        }
 
-        if (result?.url) {
-            router.replace("/dashboard");
+            if (result?.url) {
+                setIsSubmitting(true);
+                router.replace("/");
+            }
+        } catch (err) {
+            toast({
+                title: "Unexpected error",
+                description:
+                    "An unexpected error occurred while login. Please try again.",
+                variant: "destructive",
+            });
+
+            console.error(err);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -130,7 +144,7 @@ export default function Page() {
                         Don&apos;t have an account?{" "}
                         <Link
                             href={"/sign-up"}
-                            className="text-blue-600 hover:text-blue-800"
+                            className="text-blue-600 hover:text-blue-800 cursor-pointer"
                         >
                             Sign up
                         </Link>
