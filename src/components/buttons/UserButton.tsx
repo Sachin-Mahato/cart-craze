@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { LogIn, LogOut, User } from "lucide-react";
+import { LogIn, User } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,10 +8,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { useSession } from "next-auth/react";
+import Logout from "./Logout";
+import useSessionHook from "@/hooks/useSessionHook";
 
 export default function UserButton() {
-    const { data: session } = useSession();
+    const { session } = useSessionHook();
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -21,10 +22,7 @@ export default function UserButton() {
                 <DropdownMenuItem>
                     <Button variant={"ghost"}>
                         {session ? (
-                            <>
-                                <LogOut />
-                                <span>Logout</span>
-                            </>
+                            <Logout />
                         ) : (
                             <Link href={"/sign-in"}>
                                 <LogIn />

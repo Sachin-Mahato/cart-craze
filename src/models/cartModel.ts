@@ -11,20 +11,28 @@ interface Cart {
         rate?: number;
         count?: number;
     };
+    owner: mongoose.Schema.Types.ObjectId;
 }
 
-const cartSchema = new Schema<Cart>({
-    id: { type: Number, required: true },
-    title: { type: String, required: true },
-    image: { type: String, required: true },
-    quantity: { type: Number, required: true, default: 1 },
-    price: { type: Number, required: true },
-    description: { type: String, required: true },
-    rating: {
-        rate: { type: Number, required: true },
-        count: { type: Number, required: true },
+const cartSchema = new Schema<Cart>(
+    {
+        id: { type: Number, required: true },
+        title: { type: String, required: true },
+        image: { type: String, required: true },
+        quantity: { type: Number, required: true, default: 1 },
+        price: { type: Number, required: true },
+        description: { type: String, required: true },
+        rating: {
+            rate: { type: Number, required: true },
+            count: { type: Number, required: true },
+        },
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
     },
-});
+    { timestamps: true }
+);
 
 const CartModel =
     (mongoose.models.Cart as mongoose.Model<Cart>) ||

@@ -139,7 +139,7 @@ export default function Page() {
                                     <FormControl>
                                         <Input
                                             type="email"
-                                            placeholder="email"
+                                            placeholder="Email"
                                             {...field}
                                         />
                                     </FormControl>
@@ -156,7 +156,7 @@ export default function Page() {
                                     <FormControl>
                                         <Input
                                             type="password"
-                                            placeholder="password"
+                                            placeholder="Password"
                                             {...field}
                                         />
                                     </FormControl>

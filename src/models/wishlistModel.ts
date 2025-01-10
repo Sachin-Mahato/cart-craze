@@ -5,6 +5,7 @@ interface Wishlist {
     title: string;
     image: string;
     price: number;
+    owner: mongoose.Schema.Types.ObjectId;
 }
 
 const wishlistSchema = new Schema<Wishlist>({
@@ -12,6 +13,10 @@ const wishlistSchema = new Schema<Wishlist>({
     title: { type: String, required: true },
     image: { type: String, required: true },
     price: { type: Number, required: true },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
 });
 
 const WishlistModel =

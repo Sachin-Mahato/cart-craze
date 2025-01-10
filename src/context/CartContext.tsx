@@ -8,25 +8,7 @@ import React, {
     useContext,
 } from "react";
 
-interface CartItemTypes {
-    id: number;
-    image: string;
-    price: number;
-    quantity: number;
-    title: string;
-    description?: string;
-    rating?: {
-        rate?: number;
-        count?: number;
-    };
-    __v?: number;
-    _id?: number;
-}
-
-interface CartData {
-    items: CartItemTypes[];
-}
-
+import { CartData } from "@/types";
 interface CartContextType {
     cartData: CartData | null;
     setCartData: Dispatch<SetStateAction<CartData | null>>;

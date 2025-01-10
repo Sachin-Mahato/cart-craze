@@ -5,7 +5,6 @@ export async function POST(request: Request) {
     await dbConnect();
     try {
         const reqBody = await request.json();
-        //        console.log("reqBody", reqBody);
         const { id, title, image, quantity, price, description, rating } =
             reqBody;
         const item = await Cart.findOne({ id });
@@ -31,7 +30,7 @@ export async function POST(request: Request) {
             message: "add item to the cart successfully",
             success: true,
             savedItem,
-        }); // Returning a valid response
+        });
     } catch (error) {
         // console.log(`error in send: ${error}`);
         if (error instanceof Error) {
@@ -42,6 +41,6 @@ export async function POST(request: Request) {
         return Response.json(
             { error: "Internal Server Error" },
             { status: 500 }
-        ); // Return error response
+        );
     }
 }

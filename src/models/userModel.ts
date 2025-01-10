@@ -50,7 +50,7 @@ const UserSchema: Schema<User> = new Schema({
         type: Boolean,
         default: false,
     },
-});
+},{timestamps: true});
 
 const UserModel =
     mongoose.models.User<User> || mongoose.model<User>("User", UserSchema);
