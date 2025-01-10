@@ -37,19 +37,19 @@ function CartButton({ item }: { item: ProductsTypes }) {
         rating,
     };
     async function addItemToCart() {
+        setIsProcessing(true);
         if (status === "unauthenticated" && !session) {
-            setIsProcessing(true);
             toast({
                 title: "Unauthorized",
                 description: "You need to sign in to add items to the cart.",
                 variant: "destructive",
             });
             router.replace("/sign-up");
+            setIsProcessing(false);
             return;
         }
         try {
             const response = await axios.post("/api/cart/send", cartItem);
-            console.log(`Item added to cart successfully`);
             toast({
                 title: "Success",
                 description: "Item has been added to your cart.",

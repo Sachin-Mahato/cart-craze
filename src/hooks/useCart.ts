@@ -3,7 +3,6 @@ import { useCartContext } from "@/context/CartContext";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import { useCartEffect } from "./useCartEffect";
 
 export function useCart() {
     const { cartData, setCartData } = useCartContext();
@@ -131,13 +130,12 @@ export function useCart() {
         }
     }
 
-    useCartEffect(setCartData);
-
     return {
         items,
         isDeleting,
         deleteItemFromCart,
         increaseItemQuantity,
         decreaseItemQuantity,
+        setCartData,
     };
 }

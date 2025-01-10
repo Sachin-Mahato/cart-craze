@@ -16,3 +16,17 @@ export interface CartItemTypes {
 export interface CartData {
     items: CartItemTypes[];
 }
+
+export type ProductsTypes = {
+    id: number;
+    title: string;
+    price: number;
+    description?: string;
+    category?: string | null;
+    image: string;
+    rating?: {
+        rate: number | null;
+        count: number | null;
+    };
+    quantity?: number;
+};
