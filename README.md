@@ -4,13 +4,19 @@ Cart-Craze is a portfolio project showcasing my skills in building a responsive 
 
 Live demo: [Cart-Craze](https://cart-craze.netlify.app/)
 
+---
+
 ### Technologies Used:
 
-- **Next.js** for server-side rendering and API routes.
-- **Tailwind CSS** for responsive and utility-first styling.
-- **MongoDB** for storing cart and wishlist data.
-- **React** for building the UI components.
-- **Axios** for API requests.
+-   **Next.js** for server-side rendering and API routes.
+-   **Tailwind CSS** for responsive and utility-first styling.
+-   **MongoDB** for storing cart and wishlist data.
+-   **React** for building the UI components.
+-   **Axios** for API requests.
+-   **NextAuth** for secure authentication.
+-   **Resend** for sending transactional emails.
+
+---
 
 ### Key Features:
 
@@ -18,12 +24,16 @@ Live demo: [Cart-Craze](https://cart-craze.netlify.app/)
 2. Add items to a wishlist or shopping cart.
 3. Fully responsive design for all screen sizes.
 4. Single-page application (SPA) with smooth navigation.
+5. Secure authentication using NextAuth (Client Credentials).
+6. Email notifications powered by Resend.
 
-### Installation (Optional):
+---
+
+### Installation:
 
 To run the project locally:
 
-1. Clone the repo: `git clone https://github.com/your-username/cart-craze.git`
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
-
+1. Clone the repo:
+    ```bash
+    git clone https://github.com/Sachin-Mahato/cart-craze.git
+    ```

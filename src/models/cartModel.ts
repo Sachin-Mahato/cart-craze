@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-interface Cart {
+interface Cart extends Document {
     id: number;
     title: string;
     image: string;
@@ -29,6 +29,7 @@ const cartSchema = new Schema<Cart>(
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+            required: true,
         },
     },
     { timestamps: true }

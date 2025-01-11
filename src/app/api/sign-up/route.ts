@@ -44,7 +44,7 @@ export async function POST(req: Request) {
                 );
             } else {
                 const hashedPassword = await bcryptjs.hash(password, 10);
-                existingUserByEmail.Password = hashedPassword;
+                existingUserByEmail.password = hashedPassword;
                 existingUserByEmail.verifyCode = verifyCode;
                 existingUserByEmail.verifyCodeExpiry = new Date(
                     Date.now() + 3600000
