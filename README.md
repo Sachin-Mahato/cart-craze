@@ -2,7 +2,7 @@
 
 Cart-Craze is a portfolio project showcasing my skills in building a responsive e-commerce website using **Next.js**, **Tailwind CSS**, and **MongoDB**. The project includes features like product filtering, cart and wishlist management, and dynamic price calculations.
 
-Live demo: [Cart-Craze](https://cart-craze.netlify.app/)
+Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app)
 
 ---
 
