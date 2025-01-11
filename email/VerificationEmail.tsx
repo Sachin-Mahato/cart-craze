@@ -75,7 +75,7 @@ export default function VerificationEmail({
                             }}
                         >
                             Best regards, <br />
-                            Sachin Kumar Mahato AKA S.K.M
+                            Sachin Kumar Mahato
                         </Text>
                     </Row>
                 </Section>

@@ -40,8 +40,10 @@ export default function Page() {
                 redirect: false,
                 identifier: data.identifier,
                 password: data.password,
+                callbackUrl: "/products",
             });
 
+            console.log("res", result);
             if (result?.error) {
                 //TODO:  double check
                 // toast({
@@ -56,18 +58,20 @@ export default function Page() {
                         description: "Incorrect username or password",
                         variant: "destructive",
                     });
+                    return;
                 } else {
                     toast({
                         title: "Error",
                         description: result.error,
                         variant: "destructive",
                     });
+                    return;
                 }
             }
 
             if (result?.url) {
                 setIsSubmitting(true);
-                router.replace("/");
+                router.replace(result.url);
             }
         } catch (err) {
             toast({

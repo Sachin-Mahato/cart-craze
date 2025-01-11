@@ -12,7 +12,8 @@ import Logout from "./Logout";
 import useSessionHook from "@/hooks/useSessionHook";
 
 export default function UserButton() {
-    const { session } = useSessionHook();
+    const { session, status } = useSessionHook();
+    console.log("status", status);
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -21,7 +22,7 @@ export default function UserButton() {
             <DropdownMenuContent className="w-56">
                 <DropdownMenuItem>
                     <Button variant={"ghost"}>
-                        {session ? (
+                        {session || status === "authenticated" ? (
                             <Logout />
                         ) : (
                             <Link href={"/sign-in"}>
