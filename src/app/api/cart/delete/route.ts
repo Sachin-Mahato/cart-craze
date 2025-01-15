@@ -45,32 +45,3 @@ export async function DELETE(req: NextRequest) {
         );
     }
 }
-
-// export async function DELETE(req: NextRequest) {
-//   try {
-//     const { searchParams } = new URL(req.url);
-//     const id = searchParams.get("id");
-//     if (!id) {
-//       console.log(`id not found during delete:${id}`);
-//       return NextResponse.json({ message: "ID not found" }, { status: 400 });
-//     }
-//     const deleteItem = await Cart.deleteOne({
-//       _id: new mongoose.Types.ObjectId(id),
-//     });
-
-//     if (deleteItem.deletedCount === 0) {
-//       return NextResponse.json(
-//         {
-//           message: "already deleted",
-//         },
-//         { status: 400 }
-//       );
-//     }
-//     return NextResponse.json({
-//       message: "successfully delete the item ",
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.log(`error in delete ${error}`);
-//   }
-// }

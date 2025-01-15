@@ -2,6 +2,7 @@ import Image from "next/image.js";
 import CartButton from "./buttons/CartButton";
 import { ProductsTypes } from "@/types/index";
 import WishlistButton from "./buttons/WishlistButton";
+
 type ProductsListProps = {
     item: ProductsTypes;
 };
@@ -37,7 +38,6 @@ export default function ProductCard({ item }: ProductsListProps) {
                 </p>
             </div>
 
-            {/* Cart Button */}
             <CartButton item={item} />
         </div>
     );

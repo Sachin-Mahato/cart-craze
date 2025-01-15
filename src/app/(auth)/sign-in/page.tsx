@@ -33,57 +33,113 @@ export default function Page() {
         },
     });
 
+    // const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    //     setIsSubmitting(true);
+    //     try {
+    //         const result = await signIn("credentials", {
+    //             redirect: false,
+    //             identifier: data.identifier,
+    //             password: data.password,
+    //         });
+
+    //         console.log("res", result);
+    //         if (result?.error) {
+    //             //TODO:  double check
+    //             // toast({
+    //             //     title: "Login failed",
+    //             //     description: "Incorrect username or password",
+    //             //     variant: "destructive",
+    //             // });
+
+    //             if (result.error === "CredentialsSignin") {
+    //                 toast({
+    //                     title: "Login failed",
+    //                     description: "Incorrect username or password",
+    //                     variant: "destructive",
+    //                 });
+    //                 return;
+    //             } else {
+    //                 toast({
+    //                     title: "Error",
+    //                     description: result.error,
+    //                     variant: "destructive",
+    //                 });
+    //                 return;
+    //             }
+    //         }
+
+    //         // if (result?.url) {
+    //         //     setIsSubmitting(true);
+    //         //     router.replace("/");
+    //         // }
+    //         if (result) {
+    //             router.push("/");
+    //         }
+    //     } catch (err) {
+    //         toast({
+    //             title: "Unexpected error",
+    //             description:
+    //                 "An unexpected error occurred while login. Please try again.",
+    //             variant: "destructive",
+    //         });
+
+    //         console.error(err);
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // };
+
     const onSubmit = async (data: z.infer<typeof signInSchema>) => {
         setIsSubmitting(true);
+
         try {
             const result = await signIn("credentials", {
                 redirect: false,
                 identifier: data.identifier,
                 password: data.password,
-                callbackUrl: "/products",
             });
 
-            console.log("res", result);
             if (result?.error) {
-                //TODO:  double check
-                // toast({
-                //     title: "Login failed",
-                //     description: "Incorrect username or password",
-                //     variant: "destructive",
-                // });
-
-                if (result.error === "CredentialsSignin") {
-                    toast({
-                        title: "Login failed",
-                        description: "Incorrect username or password",
-                        variant: "destructive",
-                    });
-                    return;
-                } else {
-                    toast({
-                        title: "Error",
-                        description: result.error,
-                        variant: "destructive",
-                    });
-                    return;
-                }
+                handleSignInError(result.error);
+                return;
             }
 
-            if (result?.url) {
-                setIsSubmitting(true);
-                router.replace(result.url);
+            if (result?.ok && result.url) {
+                // Redirect to the URL provided in the response
+                router.push(result.url);
+            } else {
+                toast({
+                    title: "Login failed",
+                    description: "An unknown error occurred. Please try again.",
+                    variant: "destructive",
+                });
             }
         } catch (err) {
+            console.error("Sign-in error:", err);
             toast({
                 title: "Unexpected error",
                 description:
-                    "An unexpected error occurred while login. Please try again.",
+                    "An unexpected error occurred while logging in. Please try again.",
                 variant: "destructive",
             });
-
-            console.error(err);
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const handleSignInError = (error: string) => {
+        if (error === "CredentialsSignin") {
+            toast({
+                title: "Login failed",
+                description: "Incorrect username or password",
+                variant: "destructive",
+            });
+        } else {
+            toast({
+                title: "Error",
+                description: error,
+                variant: "destructive",
+            });
         }
     };
 

@@ -13,7 +13,6 @@ import useSessionHook from "@/hooks/useSessionHook";
 
 export default function UserButton() {
     const { session, status } = useSessionHook();
-    console.log("status", status);
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>

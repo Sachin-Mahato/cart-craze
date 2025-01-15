@@ -1,23 +1,20 @@
-import { NextResponse } from "next/server";
 import { dbConnect } from "@/dbConfig/dbConnect";
+import { NextResponse } from "next/server";
 import Cart from "@/models/cartModel";
 
 export async function GET() {
-    await dbConnect();
     try {
-        const items = await Cart.find();
-
+        await dbConnect();
+        const cartItems = await Cart.distinct("items", {}).lean();
         return NextResponse.json({
-            message: "successfully get the data",
+            message: "Successfully fetched the data",
             success: true,
-            items,
+            items: cartItems,
         });
     } catch (error) {
-        if (error instanceof Error) {
-            console.error(`Error in GET /cart: ${error.message}`);
-        } else {
-            console.error(`Error in GET /cart: ${error}`);
-        }
+        console.error(
+            `Error in GET /cart: ${error instanceof Error ? error.message : error}`
+        );
         return NextResponse.json(
             { error: "Internal Server Error" },
             { status: 500 }

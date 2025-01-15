@@ -9,7 +9,6 @@ export interface CartItemTypes {
         rate?: number;
         count?: number;
     };
-    __v?: number;
     _id?: number;
 }
 

@@ -1,23 +1,23 @@
 "use client";
-import { useCartContext } from "@/context/CartContext";
+// import { useCartContext } from "@/context/CartContext";
 function OderSummary() {
-    const { cartData } = useCartContext();
+    // const { cartData } = useCartContext();
 
-    const getTotal = cartData?.items.reduce((total, item) => {
-        return total + item.quantity * item.price;
-    }, 0) || 0; // Default to 0 if cartData or items is undefined
+    // const getTotal =
+    //     cartData?.items.reduce((total, item) => {
+    //         return total + item.quantity * item.price;
+    //     }, 0) || 0; // Default to 0 if cartData or items is undefined
 
-    const taxRate = 0.05; // Example: 5% tax
-    const shippingRate = 0.05; // Example: 5% shipping cost
+    // const taxRate = 0.05; // Example: 5% tax
+    // const shippingRate = 0.05; // Example: 5% shipping cost
 
-    const tax = getTotal * taxRate;
-    const shippingCost = getTotal * shippingRate;
-    const total = getTotal + tax + shippingCost;
-
+    // const tax = getTotal * taxRate;
+    // const shippingCost = getTotal * shippingRate;
+    // const total = getTotal + tax + shippingCost;
 
     return (
         <section className="mx-2">
-            <div className="my-10 flex flex-col  rounded-md border-solid border-[#EBEBEB] border-2 ">
+            {/* <div className="my-10 flex flex-col  rounded-md border-solid border-[#EBEBEB] border-2 ">
                 <h2 className="text-2xl font-semibold capitalize mt-14 mb-10 ml-2">
                     order summary
                 </h2>
@@ -47,7 +47,7 @@ function OderSummary() {
                         checkout
                     </button>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 }
