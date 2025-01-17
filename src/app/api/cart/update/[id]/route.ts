@@ -1,72 +1,96 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/dbConfig/dbConnect";
 import Cart from "@/models/cartModel";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
-export async function PATCH(req: NextRequest, context: any) {
-    await dbConnect();
-    const { params } = await context; // Extract params from context
-    const { id } = await params; // Extract ID inside the function body
+export async function PATCH(
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    const session = await getServerSession(authOptions);
 
-    console.log("PATCH request received for ID:", id);
-
-    try {
-        const body = await req.json(); // Parse the request body
-        console.log("Request body:", body);
-
-        const { quantity } = body; // Destructure quantity from the body
-
-        if (quantity == null) {
-            // Validate quantity presence
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Quantity is required to update the item",
-                },
-                { status: 400 }
-            );
-        }
-
-        // Find the item by ID
-        const existingItem = await Cart.findById(id);
-        if (!existingItem) {
-            return NextResponse.json(
-                { success: false, message: `Item with ID ${id} not found` },
-                { status: 404 }
-            );
-        }
-
-        // Update the item's quantity
-        const updateResult = await Cart.updateOne(
-            { _id: id },
-            { $set: { quantity } }
+    if (!session || !session.user) {
+        return NextResponse.json(
+            {
+                error: "Unauthorized",
+            },
+            {
+                status: 401,
+            }
         );
+    }
 
-        if (updateResult.modifiedCount > 0) {
-            return NextResponse.json({
-                success: true,
-                message: `Item with ID ${id} updated successfully`,
-                updatedValues: { quantity },
-            });
-        } else {
-            return NextResponse.json(
-                { success: false, message: "No changes were made to the item" },
-                { status: 304 }
-            );
-        }
-    } catch (error) {
-        // console.error("Error processing PATCH request:", error);
-        if (error instanceof Error) {
-            console.error(`Error in PATCH /cart: ${error.message}`);
-        } else {
-            console.error(`Error in PATCH /cart: ${error}`);
-        }
+    const { id } = await params;
+
+    if (!id) {
         return NextResponse.json(
             {
                 success: false,
-                message: "An error occurred during the update process",
+                message: `ID doesn't match, please provide valid id`,
             },
-            { status: 500 }
+            { status: 400 }
+        );
+    }
+
+    try {
+        await dbConnect();
+        const body = await req.json();
+        const { quantity } = body;
+
+        if (!quantity) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: `Quantity doesn't match, please provide valid quantity`,
+                },
+                { status: 405 }
+            );
+        }
+
+        const updateCartItem = await Cart.updateOne(
+            {
+                owner: session.user._id,
+            },
+            {
+                $set: {
+                    items: {
+                        _id: id,
+                    },
+                },
+            }
+        );
+
+        if (updateCartItem.modifiedCount > 0) {
+            return NextResponse.json(
+                {
+                    success: true,
+                    message: "Quantity updated successfully",
+                    updateQuantity: { quantity },
+                },
+                { status: 200 }
+            );
+        } else {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Item not found or already deleted",
+                },
+                {
+                    status: 404,
+                }
+            );
+        }
+    } catch (error) {
+        console.error(`error in update: ${error}`);
+
+        return NextResponse.json(
+            {
+                message: "Internal Server Error",
+            },
+            {
+                status: 500,
+            }
         );
     }
 }
