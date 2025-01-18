@@ -13,7 +13,7 @@ export interface CartItemTypes {
 }
 
 export interface CartData {
-    items: CartItemTypes[];
+    cartItems: CartItemTypes[];
 }
 
 export type ProductsTypes = {

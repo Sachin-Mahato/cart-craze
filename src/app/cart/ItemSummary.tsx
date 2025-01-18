@@ -5,7 +5,6 @@ interface ItemSumProps {
     id: number;
 }
 export default function ItemSummary({ title, imageUrl, id }: ItemSumProps) {
-    console.log("img", imageUrl);
     return (
         <div className="flex justify-center items-center gap-4">
             <Image

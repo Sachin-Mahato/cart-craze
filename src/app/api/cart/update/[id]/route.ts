@@ -9,6 +9,7 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions);
+    const { id } = await params;
 
     if (!session || !session.user) {
         return NextResponse.json(
@@ -21,66 +22,44 @@ export async function PATCH(
         );
     }
 
-    const { id } = await params;
-
     if (!id) {
+        console.error("Error: Invalid or missing ID parameter.");
+
         return NextResponse.json(
             {
                 success: false,
-                message: `ID doesn't match, please provide valid id`,
+                message: "Invalid or missing ID parameter.",
+                details:
+                    "The provided ID is either missing or malformed. Please provide a valid ID to proceed.",
             },
-            { status: 400 }
+            {
+                status: 400,
+            }
         );
     }
 
     try {
-        await dbConnect();
-        const body = await req.json();
-        const { quantity } = body;
+        dbConnect();
 
-        if (!quantity) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: `Quantity doesn't match, please provide valid quantity`,
-                },
-                { status: 405 }
-            );
-        }
-
-        const updateCartItem = await Cart.updateOne(
+        await Cart.updateOne(
             {
-                owner: session.user._id,
+                _id: id,
             },
             {
-                $set: {
-                    items: {
-                        _id: id,
-                    },
+                $inc: {
+                    "items.$.quantity": 1,
                 },
             }
         );
-
-        if (updateCartItem.modifiedCount > 0) {
-            return NextResponse.json(
-                {
-                    success: true,
-                    message: "Quantity updated successfully",
-                    updateQuantity: { quantity },
-                },
-                { status: 200 }
-            );
-        } else {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Item not found or already deleted",
-                },
-                {
-                    status: 404,
-                }
-            );
-        }
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Item updated successfully",
+            },
+            {
+                status: 200,
+            }
+        );
     } catch (error) {
         console.error(`error in update: ${error}`);
 
