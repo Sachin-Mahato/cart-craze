@@ -10,17 +10,17 @@ export default function RenderWishlist() {
     const wishlistItems = WishlistData?.wishlistItems || [];
 
     useEffect(() => {
-        (async () => {
+        async function fetchWishlistData() {
             try {
                 const response = await axios.get("/api/wishlist/get");
                 setWishlistData(response.data);
             } catch (error) {
                 console.log(`error in renderWishlist:${error}`);
             }
-        })();
-    }, [setWishlistData]);
+        }
 
-    console.log(wishlistItems);
+        fetchWishlistData();
+    }, [setWishlistData]);
 
     return (
         <section className="p-4 sm:p-6 bg-gray-100 min-h-screen">

@@ -49,7 +49,6 @@ export async function POST(request: Request) {
             });
         }
 
-        // Save the updated/new cart to the database
         await userCart.save();
 
         return Response.json({

@@ -31,8 +31,8 @@ export async function GET() {
             );
             return NextResponse.json(
                 {
-                    error: "Cart not found",
-                    details: "No cart found for the current user.",
+                    message: "Cart not found",
+                    success: false,
                 },
                 { status: 404 }
             );
@@ -40,11 +40,16 @@ export async function GET() {
 
         const cartItems = user?.items;
 
-        return NextResponse.json({
-            success: true,
-            message: "Cart items retrieved successfully.",
-            cartItems,
-        });
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Cart items retrieved successfully.",
+                cartItems,
+            },
+            {
+                status: 200,
+            }
+        );
     } catch (error) {
         console.error(
             `Error in GET /cart: ${error instanceof Error ? error.message : "Unknown error"}`,

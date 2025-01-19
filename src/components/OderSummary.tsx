@@ -1,6 +1,6 @@
 "use client";
 import { useCart } from "@/hooks/useCart";
-function OderSummary() {
+export default function OderSummary() {
     const { items } = useCart();
 
     const getTotal =
@@ -43,6 +43,11 @@ function OderSummary() {
                     <button
                         type="button"
                         className="bg-black text-white capitalize  rounded-md cursor-pointer py-4  w-[95%]"
+                        onClick={() =>
+                            alert(
+                                "This feature in currently in development and will be available soon"
+                            )
+                        }
                     >
                         checkout
                     </button>
@@ -51,5 +56,3 @@ function OderSummary() {
         </section>
     );
 }
-
-export default OderSummary;

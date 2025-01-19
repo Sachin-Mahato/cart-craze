@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { HeartIcon } from "../icons";
 import axios from "axios";
+import { useWishlistContext } from "@/context/WishlistContext";
 
 interface wishlistItemTypes {
     id: number;
@@ -13,6 +14,7 @@ interface wishlistItemTypes {
 export default function WishlistButton({ item }: { item: wishlistItemTypes }) {
     const [isAdded, setIsAdded] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { setWishlistData } = useWishlistContext();
     const { id, image, title, price } = item;
     const wishlistItem: wishlistItemTypes = {
         id,
@@ -33,10 +35,8 @@ export default function WishlistButton({ item }: { item: wishlistItemTypes }) {
                 wishlistItem
             );
             setIsAdded((prev) => !prev);
-            console.log(
-                `Item ${isAdded ? "removed from" : "added to"} wishlist`
-            );
-            return response.data;
+
+            setWishlistData(response.data);
         } catch (error) {
             console.error(`Error updating wishlist: ${error}`);
         } finally {
