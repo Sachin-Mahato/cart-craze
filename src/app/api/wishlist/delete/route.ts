@@ -1,10 +1,15 @@
 import { dbConnect } from "@/dbConfig/dbConnect";
 import Wishlist from "@/models/wishlistModel";
-import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function DELETE(req: NextRequest) {
-    await dbConnect();
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 
@@ -13,11 +18,21 @@ export async function DELETE(req: NextRequest) {
     }
 
     try {
-        const deleteItem = await Wishlist.deleteOne({
-            _id: new mongoose.Types.ObjectId(id),
-        });
+        await dbConnect();
+        const deleteItem = await Wishlist.updateOne(
+            {
+                owner: session.user._id,
+            },
+            {
+                $pull: {
+                    wishlistItems: {
+                        _id: id,
+                    },
+                },
+            }
+        );
 
-        if (deleteItem.deletedCount === 0) {
+        if (deleteItem.modifiedCount === 0) {
             return NextResponse.json(
                 { message: "Item not found or already deleted" },
                 { status: 404 }
@@ -29,7 +44,6 @@ export async function DELETE(req: NextRequest) {
             success: true,
         });
     } catch (error) {
-        // console.log(`error in delete: ${error}`);
         if (error instanceof Error) {
             console.error(`Error in DELETE /wishlist: ${error.message}`);
         } else {
