@@ -5,7 +5,6 @@ import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
-
     if (!session || !session.user) {
         return Response.json(
             {
@@ -20,7 +19,7 @@ export async function POST(request: Request) {
     try {
         await dbConnect();
         const reqBody = await request.json();
-        const { id, title, image, price } = reqBody;
+        const { productId, title, imageUrl, price } = reqBody;
 
         // check if wishlist exist for the user
 
@@ -28,7 +27,7 @@ export async function POST(request: Request) {
 
         if (userWishlist) {
             const itemExists = userWishlist.wishlistItems.some(
-                (item) => item.id === id
+                (item) => item.productId === productId
             );
 
             if (itemExists) {
@@ -41,22 +40,23 @@ export async function POST(request: Request) {
                     }
                 );
             }
-
             userWishlist.wishlistItems.push({
-                id,
+                productId,
                 title,
-                image,
+                imageUrl,
                 price,
+                isLiked: true,
             });
         } else {
             userWishlist = new Wishlist({
                 owner: session.user._id,
                 wishlistItems: [
                     {
-                        id,
+                        productId,
                         title,
-                        image,
+                        imageUrl,
                         price,
+                        isLiked: true,
                     },
                 ],
             });
@@ -64,11 +64,16 @@ export async function POST(request: Request) {
 
         await userWishlist.save();
 
-        return Response.json({
-            message: "add item to the wishlist successfully",
-            success: true,
-            userWishlist,
-        });
+        return Response.json(
+            {
+                message: "add item to the wishlist successfully",
+                success: true,
+                userWishlist,
+            },
+            {
+                status: 200,
+            }
+        );
     } catch (error) {
         if (error instanceof Error) {
             console.error(`Error in POST /wishlist: ${error.message}`);

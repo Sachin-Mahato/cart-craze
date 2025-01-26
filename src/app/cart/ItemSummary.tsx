@@ -2,7 +2,7 @@ import Image from "next/image";
 interface ItemSumProps {
     title: string;
     imageUrl: string;
-    id: number;
+    id: string;
 }
 export default function ItemSummary({ title, imageUrl, id }: ItemSumProps) {
     return (

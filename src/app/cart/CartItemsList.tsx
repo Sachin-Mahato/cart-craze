@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
+import EndPoints from "../endPoints";
 
 export default function CartItemsList() {
     const {
@@ -17,10 +18,11 @@ export default function CartItemsList() {
     } = useCart();
 
     useEffect(() => {
-        async function fetchCartData() {
+        async function fetchCartData(url: string) {
             try {
-                const response = await axios.get("/api/cart/receive");
-                setCartData(response.data);
+                const response = await axios.get(url);
+                const data = await response.data;
+                setCartData(data);
             } catch (error) {
                 console.log(`Error fetching cart items: ${error}`);
                 toast({
@@ -31,8 +33,10 @@ export default function CartItemsList() {
                 });
             }
         }
-        fetchCartData();
+        fetchCartData(EndPoints.cart.get);
     }, [setCartData]);
+
+    console.log("items", items);
 
     return (
         <>
@@ -40,19 +44,19 @@ export default function CartItemsList() {
                 <ul className="space-y-4">
                     {items.map((item) => (
                         <li
-                            key={item.id || item._id}
+                            key={item.productId}
                             className="flex gap-4 justify-around items-center"
                         >
                             <ItemSummary
                                 title={item.title}
-                                imageUrl={item?.image}
+                                imageUrl={item?.imageUrl}
                                 id={item._id!}
                             />
                             <CartItem
                                 _id={item._id!}
-                                id={item.id}
+                                productId={item.productId}
                                 price={item.price}
-                                quantity={item.quantity}
+                                stock={item.stock}
                                 isDeleting={isDeleting}
                                 increaseItemQuantity={increaseItemQuantity}
                                 decreaseItemQuantity={decreaseItemQuantity}

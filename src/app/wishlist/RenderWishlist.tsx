@@ -28,11 +28,11 @@ export default function RenderWishlist() {
                 {wishlistItems.length > 0 ? (
                     wishlistItems.map((item) => (
                         <div
-                            key={item.id}
+                            key={item.productId}
                             className="flex flex-col sm:flex-row items-center bg-white shadow-md rounded-lg p-4 gap-4"
                         >
                             <Image
-                                src={item.image}
+                                src={item.imageUrl}
                                 alt={item.title}
                                 className="w-24 h-24 sm:w-16 sm:h-16 rounded-lg object-cover"
                                 width={96}

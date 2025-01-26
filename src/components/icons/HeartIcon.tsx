@@ -1,9 +1,9 @@
-function HeartIcon({ isFilled }: { isFilled: boolean }) {
+function HeartIcon({ isLiked }: { isLiked: boolean }) {
     return (
         <div className={`h-6 w-6 transition-colors`}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill={isFilled ? "currentColor" : "none"} // Dynamically set the fill color
+                fill={isLiked ? "currentColor" : "none"} // Dynamically set the fill color
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"

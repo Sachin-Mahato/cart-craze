@@ -1,15 +1,16 @@
 export interface CartItemTypes {
-    id: number;
-    image: string;
-    price: number;
-    quantity: number;
+    productId: number;
     title: string;
-    description?: string;
-    rating?: {
-        rate?: number;
-        count?: number;
+    price: number;
+    description: string;
+    category: string;
+    imageUrl: string;
+    stock: number;
+    rating: {
+        Averagerating: number;
+        ratingCount: number;
     };
-    _id?: number;
+    _id?: string;
 }
 
 export interface CartData {
@@ -17,15 +18,15 @@ export interface CartData {
 }
 
 export type ProductsTypes = {
-    id: number;
+    productId: number;
     title: string;
     price: number;
-    description?: string;
-    category?: string | null;
-    image: string;
-    rating?: {
-        rate: number | null;
-        count: number | null;
+    description: string;
+    category: string;
+    imageUrl: string;
+    stock: number;
+    rating: {
+        Averagerating: number;
+        ratingCount: number;
     };
-    quantity?: number;
 };

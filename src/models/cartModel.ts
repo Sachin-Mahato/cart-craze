@@ -1,33 +1,35 @@
 import mongoose, { Schema, Document } from "mongoose";
+interface Rating {
+    averageRating?: number | null;
+    ratingCount?: number | null;
+}
+interface CartItem {
+    productId: number;
+    title: string;
+    imageUrl: string;
+    stock: number;
+    price: number;
+    description?: string;
+    rating?: Rating;
+}
 
 interface Cart extends Document {
-    items: {
-        id: number;
-        title: string;
-        image: string;
-        quantity: number;
-        price: number;
-        description?: string;
-        rating?: {
-            rate?: number;
-            count?: number;
-        };
-    }[];
+    items: CartItem[];
     owner: mongoose.Schema.Types.ObjectId;
 }
 const cartSchema = new Schema<Cart>(
     {
         items: [
             {
-                id: { type: Number, required: true },
+                productId: { type: Number, required: true },
+                imageUrl: { type: String, required: true },
                 title: { type: String, required: true },
-                image: { type: String, required: true },
-                quantity: { type: Number, required: true, default: 1 },
+                stock: { type: Number, required: true, default: 1 },
                 price: { type: Number, required: true },
                 description: { type: String },
                 rating: {
-                    rate: { type: Number },
-                    count: { type: Number },
+                    averageRating: { type: Number },
+                    ratingCount: { type: Number },
                 },
             },
         ],

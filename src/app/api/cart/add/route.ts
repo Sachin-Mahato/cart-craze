@@ -4,8 +4,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function POST(request: Request) {
-    await dbConnect();
-
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
@@ -13,16 +11,26 @@ export async function POST(request: Request) {
     }
 
     try {
+        await dbConnect();
         const reqBody = await request.json();
-        const { id, title, image, quantity, price, description, rating } =
-            reqBody;
+        const {
+            productId,
+            title,
+            imageUrl,
+            stock,
+            price,
+            description,
+            rating,
+        } = reqBody;
 
         // Check if a cart exists for the user
         let userCart = await Cart.findOne({ owner: session.user._id });
 
         if (userCart) {
             // Check if the item already exists in the cart
-            const itemExists = userCart.items.some((item) => item.id === id);
+            const itemExists = userCart.items.some(
+                (item) => item.productId === productId
+            );
             if (itemExists) {
                 return Response.json(
                     { error: "Cart item already exists" },
@@ -31,10 +39,10 @@ export async function POST(request: Request) {
             }
             // Add the new item to the cart
             userCart.items.push({
-                id,
+                productId,
                 title,
-                image,
-                quantity,
+                imageUrl,
+                stock,
                 price,
                 description,
                 rating,
@@ -44,7 +52,15 @@ export async function POST(request: Request) {
             userCart = new Cart({
                 owner: session.user._id,
                 items: [
-                    { id, title, image, quantity, price, description, rating },
+                    {
+                        productId,
+                        title,
+                        imageUrl,
+                        stock,
+                        price,
+                        description,
+                        rating,
+                    },
                 ],
             });
         }

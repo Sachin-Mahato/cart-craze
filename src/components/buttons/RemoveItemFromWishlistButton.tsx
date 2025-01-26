@@ -1,28 +1,9 @@
-import axios from "axios";
+"use client";
+import useWishlist from "@/hooks/useWishlist";
 import { Trash } from "lucide-react";
-import { useWishlistContext } from "@/context/WishlistContext";
 
-export default function RemoveItemFromWishlistButton({ id }: { id: number }) {
-    const { WishlistData, setWishlistData } = useWishlistContext();
-    async function deleteItemFromWishlist(id: number) {
-        const data = [...(WishlistData?.wishlistItems ?? [])];
-        setWishlistData((prev) => ({
-            ...prev!,
-            wishlistItems: prev!.wishlistItems.filter(
-                (items) => items._id !== id
-            ),
-        }));
-        try {
-            await axios.delete(`/api/wishlist/delete?id=${id}`);
-        } catch (error) {
-            console.error(`error in deleting item: ${error}`);
-            //  revert the UI if the DELETE request fails
-            setWishlistData((prev) => ({
-                ...prev!,
-                wishlistItems: data,
-            }));
-        }
-    }
+export default function RemoveItemFromWishlistButton({ id }: { id: string }) {
+    const { deleteItemFromWishlist } = useWishlist();
     return (
         <>
             <button

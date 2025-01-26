@@ -8,70 +8,26 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-
-interface cartItemTypes {
-    id: number;
-    title: string;
-    image: string;
-    quantity: number;
-    price: number;
-    description?: string;
-    rating?: {
-        rate?: number | null;
-        count?: number | null;
-    };
-}
+import endPoints from "@/app/endPoints";
 
 function CartButton({ item }: { item: ProductsTypes }) {
-    const { id, title, image, quantity, price, description, rating } = item;
     const { status, session } = useSessionHook();
     const [isProcessing, setIsProcessing] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
-    const cartItem: cartItemTypes = {
-        id,
+    const { productId, title, imageUrl, price, stock, description, rating } =
+        item;
+    const cartItem = {
+        productId,
         title,
-        image,
-        quantity: quantity ?? 1,
+        imageUrl,
         price,
         description,
+        stock,
         rating,
     };
-    // async function addItemToCart() {
-    //     setIsProcessing(true);
-    //     if (status === "unauthenticated" && !session) {
-    //         toast({
-    //             title: "Unauthorized",
-    //             description: "You need to sign in to add items to the cart.",
-    //             variant: "destructive",
-    //         });
-    //         router.replace("/sign-up");
-    //         setIsProcessing(false);
-    //         return;
-    //     }
-    //     try {
-    //         const response = await axios.post("/api/cart/send", cartItem);
-    //         toast({
-    //             title: "Success",
-    //             description: "Item has been added to your cart.",
-    //         });
-    //         console.log(`cart data: ${response.data}`);
-    //         return response.data;
-    //     } catch (error) {
-    //         console.log(`Error in adding item to cart: ${error}`);
 
-    //         toast({
-    //             title: "Error",
-    //             description:
-    //                 "There was an error adding the item to your cart. Please try again.",
-    //             variant: "destructive",
-    //         });
-    //     } finally {
-    //         setIsProcessing(false);
-    //     }
-    // }
-
-    async function addItemToCart() {
+    async function addItemToCart(url: string) {
         setIsProcessing(true);
 
         if (status === "unauthenticated" && !session) {
@@ -80,7 +36,7 @@ function CartButton({ item }: { item: ProductsTypes }) {
         }
 
         try {
-            const response = await axios.post("/api/cart/send", cartItem);
+            const response = await axios.post(url, cartItem);
 
             handleSuccess();
             return response.data;
@@ -126,7 +82,7 @@ function CartButton({ item }: { item: ProductsTypes }) {
                 <Button
                     variant={"default"}
                     disabled={isProcessing}
-                    onClick={addItemToCart}
+                    onClick={() => addItemToCart(endPoints.cart.post)}
                     className="w-full"
                 >
                     {isProcessing ? (

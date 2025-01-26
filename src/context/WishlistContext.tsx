@@ -9,13 +9,13 @@ import React, {
 } from "react";
 
 interface WishlistItemTypes {
-    id: number;
-    image: string;
+    productId: number;
+    imageUrl: string;
     price: number;
-    quantity: number;
     title: string;
+    isLiked?: boolean;
     __v?: number;
-    _id?: number;
+    _id?: string;
 }
 
 interface WishlistData {

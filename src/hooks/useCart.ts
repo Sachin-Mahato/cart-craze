@@ -9,7 +9,7 @@ export function useCart() {
     const items = cartData?.cartItems || [];
     const [isDeleting, setIsDeleting] = useState(false);
 
-    async function deleteItemFromCart(id: number) {
+    async function deleteItemFromCart(id: string) {
         setIsDeleting(true);
 
         try {
@@ -44,7 +44,7 @@ export function useCart() {
         }
     }
 
-    async function increaseItemQuantity(id: number) {
+    async function increaseItemQuantity(id: string) {
         const item = cartData?.cartItems.find((item) => item._id === id);
 
         if (!item) {
@@ -57,14 +57,12 @@ export function useCart() {
                 ...prev,
                 cartItems: prev!.cartItems.map((value) =>
                     value._id === id
-                        ? { ...value, quantity: value.quantity + 1 }
+                        ? { ...value, stock: value.stock + 1 }
                         : value
                 ),
             }));
 
-            await axios.patch(`/api/cart/update/${id}`, {
-                quantity: item.quantity + 1,
-            });
+            await axios.patch(`/api/cart/update/${id}`);
 
             toast({
                 title: "Quantity Updated",
@@ -82,7 +80,7 @@ export function useCart() {
         }
     }
 
-    async function decreaseItemQuantity(id: number) {
+    async function decreaseItemQuantity(id: string) {
         const item = cartData?.cartItems.find((item) => item._id === id);
 
         if (!item) {
@@ -91,7 +89,7 @@ export function useCart() {
         }
 
         try {
-            if (item.quantity - 1 < 1) {
+            if (item.stock - 1 < 1) {
                 // Delete item if quantity becomes less than 1
                 await deleteItemFromCart(id);
             } else {
@@ -99,14 +97,12 @@ export function useCart() {
                     ...prev,
                     cartItems: prev!.cartItems.map((value) =>
                         value._id === id
-                            ? { ...value, quantity: value.quantity - 1 }
+                            ? { ...value, stock: value.stock - 1 }
                             : value
                     ),
                 }));
 
-                await axios.patch(`/api/cart/update/${id}`, {
-                    quantity: item.quantity - 1,
-                });
+                await axios.patch(`/api/cart/update/${id}`);
 
                 toast({
                     title: "Quantity Updated",

@@ -10,13 +10,11 @@ type ProductsListProps = {
 export default function ProductCard({ item }: ProductsListProps) {
     return (
         <div className="flex flex-col justify-between w-[180px] h-[320px] bg-[#F6F6F6] shadow-lg rounded-lg overflow-hidden lg:w-[200px] lg:h-[360px] border border-gray-200">
-            {/* Heart Icon Section */}
             <WishlistButton item={item} />
-            {/* Product Image */}
             <div className="flex items-center justify-center h-28 w-full bg-gray-100">
-                {item.image ? (
+                {item.imageUrl ? (
                     <Image
-                        src={item.image}
+                        src={item.imageUrl}
                         alt={item.title}
                         className="w-24 h-28 object-contain mix-blend-darken"
                         width={300}

@@ -1,5 +1,5 @@
 import Navbar from "@/components/navigation/Navbar";
-
+import { ProductsProvider } from "@/context/ProductsContext";
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -7,8 +7,10 @@ export default function RootLayout({
 }>) {
     return (
         <>
-            <Navbar />
-            {children}
+            <ProductsProvider>
+                <Navbar />
+                {children}
+            </ProductsProvider>
         </>
     );
 }

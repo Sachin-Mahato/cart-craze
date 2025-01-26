@@ -2,10 +2,11 @@ import mongoose, { Schema } from "mongoose";
 
 interface Wishlist extends Document {
     wishlistItems: {
-        id: number;
+        productId: number;
         title: string;
-        image: string;
+        imageUrl: string;
         price: number;
+        isLiked: boolean;
     }[];
     owner: mongoose.Schema.Types.ObjectId;
 }
@@ -14,10 +15,11 @@ const wishlistSchema = new Schema<Wishlist>(
     {
         wishlistItems: [
             {
-                id: { type: Number, required: true },
+                productId: { type: Number, required: true },
                 title: { type: String, required: true },
-                image: { type: String, required: true },
+                imageUrl: { type: String, required: true },
                 price: { type: Number, required: true },
+                isLiked: { type: Boolean, require: true, default: false },
             },
         ],
         owner: {
