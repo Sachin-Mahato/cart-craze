@@ -1,13 +1,20 @@
 import Footer from "@/components/Footer/Footer";
-import Category from "@/components/Category";
 import Navbar from "@/components/navigation/Navbar";
+import HeroSection from "@/components/Hero";
+import Category from "@/components/Category";
+import FeaturedProducts from "@/components/FeaturedProducts";
+import PromotionalSection from "@/components/PromoSection";
+import CallToAction from "@/components/CallToAction";
 
 export default function Home() {
     return (
         <>
             <Navbar />
+            <HeroSection />
             <Category />
-            <div className="mx-20"></div>
+            <FeaturedProducts />
+            <PromotionalSection />
+            <CallToAction />
             <Footer />
         </>
     );

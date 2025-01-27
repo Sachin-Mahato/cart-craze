@@ -1,19 +1,18 @@
-"use client";
-
-import { useProductsContext } from "@/context/ProductsContext";
 import ProductsList from "@/components/ProductsList";
+import { ProductsTypes } from "@/types";
 
-export default function Products() {
-    const { productsData } = useProductsContext();
+export default function Products({ data }: { data: ProductsTypes[] }) {
     return (
         <div className="font-[sans-serif] bg-white my-4 lg:mx-20">
             <section className="p-4 mx-auto lg:max-w-7xl sm:max-w-full">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6">
-                    {productsData.map((product, idx: number) => (
-                        <div key={idx}>
-                            <ProductsList item={product} />
-                        </div>
-                    ))}
+                    {data?.length > 0
+                        ? data?.map((product: ProductsTypes, idx: number) => (
+                              <div key={idx}>
+                                  <ProductsList item={product} />
+                              </div>
+                          ))
+                        : "No data found"}
                 </div>
             </section>
         </div>

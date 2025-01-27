@@ -36,8 +36,6 @@ export default function CartItemsList() {
         fetchCartData(EndPoints.cart.get);
     }, [setCartData]);
 
-    console.log("items", items);
-
     return (
         <>
             {items.length > 0 ? (

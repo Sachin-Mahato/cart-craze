@@ -20,7 +20,7 @@ export default function WishlistButton({ item }: { item: WishlistItemTypes }) {
     const [loading, setLoading] = useState(false);
     const { WishlistData, setWishlistData } = useWishlistContext();
     const wishlistItems = WishlistData?.wishlistItems ?? [];
-    const { productId, imageUrl, title, price, _id } = item;
+    const { productId, imageUrl, title, price } = item;
     const { deleteItemFromWishlist } = useWishlist();
 
     // Check if current item exists in wishlist
@@ -31,21 +31,23 @@ export default function WishlistButton({ item }: { item: WishlistItemTypes }) {
     async function handleWishlistToggle() {
         setLoading(true);
         // Optimistic update
+        if (!WishlistData) return;
         const previousWishlistData = WishlistData;
         if (isItemInWishlist) {
             // Remove item optimistically
             setWishlistData((prev) => ({
                 ...prev,
-                wishlistItems: prev!.wishlistItems.filter(
-                    (item) => item.productId !== productId
-                ),
+                wishlistItems:
+                    prev?.wishlistItems.filter(
+                        (item) => item.productId !== productId
+                    ) ?? [],
             }));
         } else {
             // Add item optimistically
             setWishlistData((prev) => ({
                 ...prev,
                 wishlistItems: [
-                    ...prev!.wishlistItems,
+                    ...(prev?.wishlistItems ?? []),
                     { productId, title, imageUrl, price, isLiked: true },
                 ],
             }));
