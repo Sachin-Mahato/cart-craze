@@ -1,7 +1,11 @@
+"use client";
 import ProductsList from "@/components/ProductsList";
+import { useProductsContext } from "@/context/ProductsContext";
 import { ProductsTypes } from "@/types";
 
-export default function Products({ data }: { data: ProductsTypes[] }) {
+export default function Products() {
+    const { productsData } = useProductsContext();
+    const data = productsData;
     return (
         <div className="font-[sans-serif] bg-white my-4 lg:mx-20">
             <section className="p-4 mx-auto lg:max-w-7xl sm:max-w-full">

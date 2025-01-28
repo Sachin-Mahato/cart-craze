@@ -7,7 +7,7 @@ export interface CartItemTypes {
     imageUrl: string;
     stock: number;
     rating: {
-        Averagerating: number;
+        averageRating: number;
         ratingCount: number;
     };
     _id?: string;
@@ -26,7 +26,7 @@ export type ProductsTypes = {
     imageUrl: string;
     stock: number;
     rating: {
-        Averagerating: number;
+        averageRating: number;
         ratingCount: number;
     };
 };
