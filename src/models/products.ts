@@ -5,7 +5,7 @@ interface Rating {
     ratingCount?: number | null;
 }
 
-export interface Product {
+export type Product = {
     productId: number;
     title: string;
     imageUrl: string;
@@ -14,7 +14,7 @@ export interface Product {
     description?: string;
     category: string;
     rating?: Rating;
-}
+};
 
 interface ProductCollection extends Document {
     products: Product[];

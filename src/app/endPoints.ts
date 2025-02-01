@@ -1,6 +1,8 @@
 export default class endPoints {
     static readonly products = {
         get: `api/products/get`,
+        query: (min: number, max: number) =>
+            `api/products/query?min=${min}&max=${max}`,
     };
 
     static readonly cart = {

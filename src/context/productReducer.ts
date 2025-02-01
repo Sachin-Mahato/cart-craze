@@ -6,7 +6,9 @@ interface State {
 
 type Action =
     | { type: "SET_PRODUCTS"; payload: ProductsTypes[] }
-    | { type: "SORT_PRODUCTS"; payload: string };
+    | { type: "SORT_PRODUCTS"; payload: string }
+    | { type: "FILTER_PRICE"; payload: string }
+    | { type: "QUERY_PRODUCTS"; payload: string };
 
 export default function productReducer(state: State, action: Action): State {
     if (action.type === "SET_PRODUCTS") {

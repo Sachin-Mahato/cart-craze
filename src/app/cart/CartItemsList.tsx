@@ -3,9 +3,9 @@ import ItemSummary from "./ItemSummary";
 import CartItem from "./CartItem";
 import { useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
-import axios from "axios";
 import { toast } from "@/hooks/use-toast";
 import EndPoints from "../endPoints";
+import { getCartData } from "@/helpers/utils";
 
 export default function CartItemsList() {
     const {
@@ -20,8 +20,7 @@ export default function CartItemsList() {
     useEffect(() => {
         async function fetchCartData(url: string) {
             try {
-                const response = await axios.get(url);
-                const data = await response.data;
+                const data = await getCartData(url);
                 setCartData(data);
             } catch (error) {
                 console.log(`Error fetching cart items: ${error}`);
@@ -34,7 +33,7 @@ export default function CartItemsList() {
             }
         }
         fetchCartData(EndPoints.cart.get);
-    }, [setCartData]);
+    }, []);
 
     return (
         <>
