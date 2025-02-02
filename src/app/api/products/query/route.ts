@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     try {
         await dbConnect();
 
-        const data = await productCollectionModel
+        await productCollectionModel
             .aggregate([
                 {
                     $match: {
@@ -51,7 +51,6 @@ export async function GET(req: NextRequest) {
             {
                 message: "success",
                 success: true,
-                data,
             },
             {
                 status: 200,
