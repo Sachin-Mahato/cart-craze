@@ -1,3 +1,4 @@
+"use strict";
 import axios from "axios";
 
 const cache = new Map();
@@ -21,4 +22,17 @@ export default async function getData(url: string) {
         console.error("Error in API call:", err);
         return null; // Ensure a return value even on failure
     }
+}
+
+export function debounce(fn: () => void, delay: number) {
+    let id: ReturnType<typeof setTimeout> | undefined;
+
+    return () => {
+        if (id) {
+            clearTimeout(id);
+        }
+        id = setTimeout(() => {
+            fn();
+        }, delay);
+    };
 }

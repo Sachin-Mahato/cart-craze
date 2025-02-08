@@ -11,9 +11,9 @@ import {
 } from "react";
 import { createContext, useContext } from "react";
 import productReducer from "./productReducer";
-import endPoints from "@/app/endPoints";
+// import endPoints from "@/app/endPoints";
 import queryDB from "@/helpers/queryDB";
-import getData from "@/helpers/productData";
+import { debounce } from "@/helpers/productData";
 
 interface Product {
     productId: number;
@@ -37,22 +37,23 @@ const initialState: State = {
 
 type PriceRange = {
     min: number;
-    max?: number;
+    max: number;
 };
 
 interface ProductsContextType {
     productsData: Product[];
     sortProducts: (sortType: string) => void;
-    queryProducts: (val: string) => void;
+    queryProducts: (val: string) => PriceRange;
     setQuery: Dispatch<SetStateAction<PriceRange | any>>;
-    query: any;
+    query: PriceRange;
+    // handleProductsRange: (min: number, max: number) => Promise<void>;
 }
 
 const ProductsContext = createContext<ProductsContextType | null>(null);
 
 export function ProductsProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(productReducer, initialState);
-    const [query, setQuery] = useState<PriceRange>({ min: 0, max: 1000 });
+    const [query, setQuery] = useState<PriceRange>({ min: 0, max: 10000 });
 
     function sortProducts(sortType: string) {
         dispatch({ type: "SORT_PRODUCTS", payload: sortType });
@@ -71,38 +72,37 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
                 min: 101,
                 max: 200,
             };
-        } else if (val === "201") {
+        } else if (val === "201-1000") {
             return {
                 min: 201,
                 max: 2000,
+            };
+        } else if (val === "products") {
+            return {
+                min: 1,
+                max: 20000,
             };
         }
     }, []);
 
     useEffect(() => {
-        (async () => {
+        const fetchData = debounce(async () => {
             try {
-                const data = await getData(endPoints.products.get);
+                const { min, max } = query;
+                console.log(min, max);
+                const response = await queryDB(min, max);
+                const data = await response["products"][0]["products"];
+                console.log(data);
                 if (data) {
                     dispatch({ type: "SET_PRODUCTS", payload: data });
                 }
             } catch (error) {
                 console.error("Error in products data:", error);
             }
-        })();
-    }, []);
+        }, 2000);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const { min, max } = query;
-                const data = await queryDB(min, max!);
-                console.log("query db data", data);
-            } catch (error) {
-                console.log("Error in querying DB", error);
-            }
-        })();
-    }, [query, queryProducts]);
+        fetchData();
+    }, [query]);
 
     return (
         <ProductsContext.Provider
@@ -112,6 +112,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
                 queryProducts,
                 setQuery,
                 query,
+                // handleProductsRange,
             }}
         >
             {children}

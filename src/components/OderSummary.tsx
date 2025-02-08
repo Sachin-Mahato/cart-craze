@@ -5,7 +5,7 @@ export default function OderSummary() {
 
     const getTotal =
         items.reduce((total, item) => {
-            return total + item.quantity * item.price;
+            return total + item.stock * item.price;
         }, 0) || 0; // Default to 0 if cartData or items is undefined
 
     const taxRate = 0.05; // Example: 5% tax

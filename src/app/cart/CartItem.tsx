@@ -1,5 +1,6 @@
 "use client";
-import { Minus, Plus, Close } from "@/components/icons/index";
+import { Minus, Plus, X } from "lucide-react";
+import { FC } from "react";
 
 interface CartItemProps {
     _id: string;
@@ -11,12 +12,8 @@ interface CartItemProps {
     decreaseItemQuantity: (id: string) => void;
     deleteItemFromCart: (id: string) => void;
 }
-
-import { FC } from "react";
-
 const CartItem: FC<CartItemProps> = ({
     _id,
-    productId,
     stock,
     price,
     isDeleting,
@@ -32,14 +29,14 @@ const CartItem: FC<CartItemProps> = ({
                         className="cursor-pointer"
                         onClick={() => decreaseItemQuantity(_id!)}
                     >
-                        <Minus itemId={productId} />
+                        <Minus />
                     </div>
 
                     <div className="border-solid h-6 w-6 text-center border-gray-400 border-2">
                         <p className="font-semibold">{stock}</p>
                     </div>
                     <div onClick={() => increaseItemQuantity(_id!)}>
-                        <Plus itemId={productId} />
+                        <Plus />
                     </div>
                 </div>
                 <div className="flex gap-2 justify-around items-center w-full">
@@ -49,7 +46,7 @@ const CartItem: FC<CartItemProps> = ({
                         type="button"
                         onClick={() => deleteItemFromCart(_id!)}
                     >
-                        {isDeleting ? "" : <Close />}
+                        {isDeleting ? "" : <X />}
                     </button>
                 </div>
             </div>

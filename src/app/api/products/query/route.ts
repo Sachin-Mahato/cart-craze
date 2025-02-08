@@ -4,57 +4,41 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
-
     const min = parseFloat(searchParams.get("min") || "0");
-    const max = parseFloat(searchParams.get("max") || "Infinity");
+    const max = parseFloat(searchParams.get("max") || "100000");
 
     if (isNaN(min) || isNaN(max)) {
         return NextResponse.json(
-            {
-                message: "Invalid parameter",
-                success: false,
-            },
-            {
-                status: 400,
-            }
+            { message: "Invalid parameter", success: false },
+            { status: 400 }
         );
     }
 
     try {
         await dbConnect();
 
-        await productCollectionModel
+        const products = await productCollectionModel
             .aggregate([
+                { $unwind: "$products" }, // Unwind first
                 {
-                    $match: {
-                        "products.price": { $gte: 5, $lte: 50 },
-                    },
+                    $match: { "products.price": { $gte: min, $lte: max } }, // Dynamic filtering
                 },
                 {
-                    $unwind: "$products",
-                },
-                {
-                    $match: {
-                        "products.price": { $gte: 5, $lte: 50 },
-                    },
-                },
-                {
-                    $group: {
-                        _id: "$_id",
-                        products: { $push: "$products" },
-                    },
+                    $group: { _id: "$_id", products: { $push: "$products" } },
                 },
             ])
             .exec();
 
+        if (!products) {
+            return NextResponse.json(
+                { message: "Failed to filter products", success: false },
+                { status: 500 }
+            );
+        }
+
         return NextResponse.json(
-            {
-                message: "success",
-                success: true,
-            },
-            {
-                status: 200,
-            }
+            { message: "success", success: true, products },
+            { status: 200 }
         );
     } catch (error) {
         console.error(
@@ -63,13 +47,8 @@ export async function GET(req: NextRequest) {
         );
 
         return NextResponse.json(
-            {
-                message: "Internal server error",
-                success: false,
-            },
-            {
-                status: 500,
-            }
+            { message: "Internal server error", success: false },
+            { status: 500 }
         );
     }
 }

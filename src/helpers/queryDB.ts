@@ -1,3 +1,5 @@
+"use strict";
+
 import endPoints from "@/app/endPoints";
 import axios from "axios";
 
@@ -13,7 +15,6 @@ export default async function queryDB(min: number, max: number) {
     try {
         const response = await axios.get(url);
         const data = await response?.data;
-        console.log("query data", data);
         if (!data) {
             console.error("No data query from DB");
             return null;
