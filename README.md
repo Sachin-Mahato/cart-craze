@@ -20,13 +20,13 @@ Live demo: Cart-Craze
 
 ### Key Features:
 
-1.Filter products by category and price.
-2.Add items to a wishlist or shopping cart.
-3.Fully responsive design that works on any device.
-4.Smooth navigation between pages (single-page app).
-5.Secure authentication with NextAuth.
-6.Email notifications with Resend.
-7.Performance Optimization: API calls are made 50x faster with frontend caching, and debouncing is used to prevent unnecessary requests.
+1. Filter products by category and price.
+2. Add items to a wishlist or shopping cart.
+3. Fully responsive design that works on any device.
+4. Smooth navigation between pages (single-page app).
+5. Secure authentication with NextAuth.
+6. Email notifications with Resend.
+7. Performance Optimization: API calls are made 50x faster with frontend caching, and debouncing is used to prevent unnecessary requests.
 
 ---
 
