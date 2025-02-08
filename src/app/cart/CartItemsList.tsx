@@ -33,7 +33,7 @@ export default function CartItemsList() {
             }
         }
         fetchCartData(EndPoints.cart.get);
-    }, []);
+    }, [setCartData]);
 
     return (
         <>
