@@ -29,18 +29,3 @@ export default function PriceByFilter() {
         </Select>
     );
 }
-
-// <div className="hidden lg:block">
-//     <div className="w-full">
-//         <p className=" capitalize font-semibold">price</p>
-//         <div>
-//             <Checkbox id="price" />
-//             <label
-//                 htmlFor="price"
-//                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-//             >
-//                 {`$5 to $30`}
-//             </label>
-//         </div>
-//     </div>
-// </div>

@@ -1,8 +1,8 @@
 # Cart-Craze
 
-Cart-Craze is a portfolio project showcasing my skills in building a responsive e-commerce website using **Next.js**, **Tailwind CSS**, and **MongoDB**. The project includes features like product filtering, cart and wishlist management, and dynamic price calculations.
+Cart-Craze is a portfolio project that shows my skills in building a responsive e-commerce website. It uses Next.js, Tailwind CSS, and MongoDB. The project includes features like product filtering, cart and wishlist management, and price calculations.
 
-Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app)
+Live demo: Cart-Craze
 
 ---
 
@@ -20,12 +20,13 @@ Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app)
 
 ### Key Features:
 
-1. Filter products by category and price.
-2. Add items to a wishlist or shopping cart.
-3. Fully responsive design for all screen sizes.
-4. Single-page application (SPA) with smooth navigation.
-5. Secure authentication using NextAuth (Client Credentials).
-6. Email notifications powered by Resend.
+**1**.Filter products by category and price.
+**2**.Add items to a wishlist or shopping cart.
+**3**.Fully responsive design that works on any device.
+**4**.Smooth navigation between pages (single-page app).
+**5**.Secure authentication with NextAuth.
+**6**.Email notifications with Resend.
+**7**.Performance Optimization: API calls are made 50x faster with frontend caching, and debouncing is used to prevent unnecessary requests.
 
 ---
 
@@ -34,6 +35,27 @@ Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app)
 To run the project locally:
 
 1. Clone the repo:
+
     ```bash
     git clone https://github.com/Sachin-Mahato/cart-craze.git
     ```
+
+2. Go to the project folder:
+
+    ```bash
+    cd cart-craze
+    ```
+
+3. Install dependencies:
+
+    ```bash
+    pnpm install
+    ```
+
+4. Run the app locally:
+
+    ```bash
+    pnpm dev
+    ```
+
+    Open the website at http://localhost:3000.

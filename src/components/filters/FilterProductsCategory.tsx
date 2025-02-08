@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-function FilterProductsCategory() {
+export default function FilterProductsCategory() {
     const [cateToggle, setCatToggle] = useState(false);
 
     function cateToggleClickHandler() {
@@ -63,5 +63,3 @@ function FilterProductsCategory() {
         </div>
     );
 }
-
-export default FilterProductsCategory;

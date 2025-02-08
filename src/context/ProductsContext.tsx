@@ -45,6 +45,7 @@ interface ProductsContextType {
     queryProducts: (val: string) => { min: number; max: number };
     setQuery: Dispatch<SetStateAction<PriceRange | any>>;
     query: PriceRange;
+    isLoading: boolean;
 }
 
 const ProductsContext = createContext<ProductsContextType | null>(null);
@@ -52,6 +53,7 @@ const ProductsContext = createContext<ProductsContextType | null>(null);
 export function ProductsProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(productReducer, initialState);
     const [query, setQuery] = useState<PriceRange>({ min: 0, max: 10000 });
+    const [isLoading, isSetLoading] = useState(false);
 
     function sortProducts(sortType: string) {
         dispatch({ type: "SORT_PRODUCTS", payload: sortType });
@@ -90,6 +92,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         const fetchData = debounce(async () => {
+            isSetLoading(true);
             try {
                 const { min, max } = query;
                 const response = await queryDB(min, max);
@@ -99,6 +102,8 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
                 }
             } catch (error) {
                 console.error("Error in products data:", error);
+            } finally {
+                isSetLoading(false);
             }
         }, 1000);
 
@@ -113,6 +118,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
                 queryProducts,
                 setQuery,
                 query,
+                isLoading,
                 // handleProductsRange,
             }}
         >
