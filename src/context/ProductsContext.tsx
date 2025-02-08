@@ -11,7 +11,6 @@ import {
 } from "react";
 import { createContext, useContext } from "react";
 import productReducer from "./productReducer";
-// import endPoints from "@/app/endPoints";
 import queryDB from "@/helpers/queryDB";
 import { debounce } from "@/helpers/productData";
 
@@ -43,10 +42,9 @@ type PriceRange = {
 interface ProductsContextType {
     productsData: Product[];
     sortProducts: (sortType: string) => void;
-    queryProducts: (val: string) => PriceRange;
+    queryProducts: (val: string) => { min: number; max: number };
     setQuery: Dispatch<SetStateAction<PriceRange | any>>;
     query: PriceRange;
-    // handleProductsRange: (min: number, max: number) => Promise<void>;
 }
 
 const ProductsContext = createContext<ProductsContextType | null>(null);
@@ -83,23 +81,26 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
                 max: 20000,
             };
         }
+
+        return {
+            min: 1,
+            max: 100000,
+        };
     }, []);
 
     useEffect(() => {
         const fetchData = debounce(async () => {
             try {
                 const { min, max } = query;
-                console.log(min, max);
                 const response = await queryDB(min, max);
-                const data = await response["products"][0]["products"];
-                console.log(data);
+                const data = response?.products;
                 if (data) {
                     dispatch({ type: "SET_PRODUCTS", payload: data });
                 }
             } catch (error) {
                 console.error("Error in products data:", error);
             }
-        }, 2000);
+        }, 1000);
 
         fetchData();
     }, [query]);

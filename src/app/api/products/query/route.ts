@@ -17,34 +17,28 @@ export async function GET(req: NextRequest) {
     try {
         await dbConnect();
 
+        // Fetch products directly without extra nesting
         const products = await productCollectionModel
             .aggregate([
-                { $unwind: "$products" }, // Unwind first
-                {
-                    $match: { "products.price": { $gte: min, $lte: max } }, // Dynamic filtering
-                },
-                {
-                    $group: { _id: "$_id", products: { $push: "$products" } },
-                },
+                { $unwind: "$products" }, // Split nested products into separate docs
+                { $match: { "products.price": { $gte: min, $lte: max } } }, // Filter by price
+                { $replaceRoot: { newRoot: "$products" } }, // Flatten to return only product objects
             ])
             .exec();
 
-        if (!products) {
+        if (!products.length) {
             return NextResponse.json(
-                { message: "Failed to filter products", success: false },
-                { status: 500 }
+                { message: "No products found", success: false },
+                { status: 404 }
             );
         }
 
         return NextResponse.json(
-            { message: "success", success: true, products },
+            { message: "Success", success: true, products },
             { status: 200 }
         );
     } catch (error) {
-        console.error(
-            "Error in products /query: ",
-            error instanceof Error ? error.message : error
-        );
+        console.error("Error in products query:", error);
 
         return NextResponse.json(
             { message: "Internal server error", success: false },
