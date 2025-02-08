@@ -2,7 +2,7 @@
 
 Cart-Craze is a portfolio project that shows my skills in building a responsive e-commerce website. It uses Next.js, Tailwind CSS, and MongoDB. The project includes features like product filtering, cart and wishlist management, and price calculations.
 
-Live demo: Cart-Craze
+Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app/)
 
 ---
 
@@ -58,4 +58,4 @@ To run the project locally:
     pnpm dev
     ```
 
-    Open the website at http://localhost:3000.
+    Open the website at [link](https://cart-craze-lake.vercel.app/)
