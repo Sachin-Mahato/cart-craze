@@ -6,15 +6,16 @@ Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app/)
 
 ---
 
-### Technologies Used:
+### Built with:
 
 -   **Next.js** for server-side rendering and API routes.
--   **Tailwind CSS** for responsive and utility-first styling.
 -   **MongoDB** for storing cart and wishlist data.
--   **React** for building the UI components.
--   **Axios** for API requests.
 -   **NextAuth** for secure authentication.
+-   **React** for building the UI components.
 -   **Resend** for sending transactional emails.
+-   **Axios** for API requests.
+-   **Tailwind CSS** for responsive and utility-first styling.
+-   **Shadcn UI** for components and UI styling.
 
 ---
 
