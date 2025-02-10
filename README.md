@@ -20,15 +20,20 @@ Live demo: [Cart-Craze](https://cart-craze-lake.vercel.app/)
 
 ### Key Features:
 
-1. Filter products by category and price.
-2. Add items to a wishlist or shopping cart.
-3. Fully responsive design that works on any device.
-4. Smooth navigation between pages (single-page app).
-5. Secure authentication with NextAuth.
-6. Email notifications with Resend.
-7. Performance Optimization: API calls are made 50x faster with frontend caching, and debouncing is used to prevent unnecessary requests.
+1. Filter products by price.
+2. Sort Items based on popularity.
+3. Add items to a wishlist or shopping cart.
+4. Fully responsive design that works on any device.
+5. Smooth navigation between pages (single-page app).
+6. Secure authentication with NextAuth.
+7. Email notifications with Resend.
+8. Performance Optimization: API calls are made 50x faster with frontend caching, and debouncing is used to prevent unnecessary requests.
 
 ---
+
+### Upcoming features:
+1. **Search Bar** - Find products easily by typing in the search bar.
+2. **Wishlist Enhancement** - Add item to the wishlist, and the hear icon will turn red.
 
 ### Installation:
 
@@ -58,4 +63,4 @@ To run the project locally:
     pnpm dev
     ```
 
-    Open the website at [link](https://cart-craze-lake.vercel.app/)
+
