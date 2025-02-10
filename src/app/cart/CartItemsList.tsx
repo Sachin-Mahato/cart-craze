@@ -2,7 +2,7 @@
 import ItemSummary from "./ItemSummary";
 import CartItem from "./CartItem";
 import { useEffect } from "react";
-import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/hooks/cart/useCart";
 import { toast } from "@/hooks/use-toast";
 import EndPoints from "../endPoints";
 import { getCartData } from "@/helpers/utils";

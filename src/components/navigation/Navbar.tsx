@@ -6,7 +6,7 @@ import Contact from "@/components/Footer/Contact";
 import { ShoppingCart, Heart } from "lucide-react";
 import UserButton from "../buttons/UserButton";
 
-function Navbar() {
+export default function Navbar() {
     return (
         <nav className="my-7">
             <div className="lg:hidden flex justify-between ">
@@ -37,4 +37,3 @@ function Navbar() {
     );
 }
 
-export default Navbar;

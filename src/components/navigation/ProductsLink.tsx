@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function ProductsLinks() {
+export default function ProductsLinks() {
     return (
         <>
             <Link href={"/products"}>
@@ -11,5 +11,3 @@ function ProductsLinks() {
         </>
     );
 }
-
-export default ProductsLinks;

@@ -1,5 +1,5 @@
 import SortByOptions from "@/components/filters/SortByOptions";
-import PriceFilter from "@/components/filters/filterByPrice";
+import PriceFilter from "@/components/filters/FilterByPrice";
 import ShowProduct from "./ShowProduct";
 
 function Products() {

@@ -2,61 +2,61 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-export default function FilterProductsCategory() {
-    const [cateToggle, setCatToggle] = useState(false);
+const CATEGORIES = [
+    "All",
+    "Electronics",
+    "Jewelry",
+    "Men's Clothing",
+    "Women's Clothing",
+] as const;
 
-    function cateToggleClickHandler() {
-        setCatToggle((prev) => !prev);
-    }
+interface FilterProductsCategoryProps {
+    onCategorySelect?: (category: string) => void;
+    selectedCategory?: string;
+}
+
+export default function FilterProductsCategory({
+    onCategorySelect,
+    selectedCategory = "All",
+}: FilterProductsCategoryProps) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleCategory = () => setIsOpen((prev) => !prev);
 
     return (
         <div className="hidden lg:w-full lg:flex lg:flex-col lg:gap-4">
-            <div className="lg:flex lg:gap-4">
+            <button
+                className="lg:flex lg:gap-4 items-center"
+                onClick={toggleCategory}
+                aria-expanded={isOpen}
+                aria-controls="category-list"
+            >
                 <p className="capitalize font-semibold">category</p>
-                <div
-                    className="cursor-pointer"
-                    onClick={cateToggleClickHandler}
+                <ChevronDown className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isOpen && (
+                <section 
+                    id="category-list"
+                    className="mt-2"
+                    role="listbox"
+                    aria-label="Product categories"
                 >
-                    <ChevronDown />
-                </div>
-            </div>
-            {cateToggle && (
-                <section className="">
                     <div className="grid sm:grid-cols-5 gap-4">
-                        {/* All Category */}
-                        <div className="flex flex-col items-start">
-                            <p className="text-sm font-semibold text-gray-800">
-                                All
-                            </p>
-                        </div>
-
-                        {/* Electronics Category */}
-                        <div className="flex flex-col items-start">
-                            <p className="text-sm font-semibold text-gray-800">
-                                Electronics
-                            </p>
-                        </div>
-
-                        {/* Jewelry Category */}
-                        <div className="flex flex-col items-start">
-                            <p className="text-sm font-semibold text-gray-800">
-                                Jewelry
-                            </p>
-                        </div>
-
-                        {/* Men's Clothing Category */}
-                        <div className="flex flex-col items-start">
-                            <p className="text-sm font-semibold text-gray-800">
-                                Men&apos;s Clothing
-                            </p>
-                        </div>
-
-                        {/* Women's Clothing Category */}
-                        <div className="flex flex-col items-start">
-                            <p className="text-sm font-semibold text-gray-800">
-                                Women&apos;s Clothing
-                            </p>
-                        </div>
+                        {CATEGORIES.map((category) => (
+                            <button
+                                key={category}
+                                className={`text-left hover:bg-gray-100 p-2 rounded-md transition-colors
+                                    ${selectedCategory === category ? 'bg-gray-100' : ''}`}
+                                onClick={() => onCategorySelect?.(category)}
+                                role="option"
+                                aria-selected={selectedCategory === category}
+                            >
+                                <p className="text-sm font-semibold text-gray-800">
+                                    {category}
+                                </p>
+                            </button>
+                        ))}
                     </div>
                 </section>
             )}

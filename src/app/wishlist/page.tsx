@@ -1,6 +1,6 @@
 // /* eslint-disable no-var */
 import Footer from "@/components/Footer/Footer";
-import RenderWishlist from "./RenderWishlist";
+import RenderWishlist from "./Wishlist";
 
 function Wishlist() {
     return (

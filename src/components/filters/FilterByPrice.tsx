@@ -7,7 +7,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useProductsContext } from "@/context/ProductsContext";
-export default function PriceByFilter() {
+export default function FilterByPrice() {
     const { queryProducts, setQuery } = useProductsContext();
 
     const selectHandler = (val: string) => {

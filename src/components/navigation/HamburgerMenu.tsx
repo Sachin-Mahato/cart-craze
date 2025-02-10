@@ -1,43 +1,43 @@
 "use client";
 import CartLink from "./CartLink";
 import ProductsLinks from "./ProductsLink";
+import { Menu } from "lucide-react";
+import { Button } from "../ui/button";
+import { useState } from "react";
+import WishlistLink from "./WishlistLink";
 
-function HamburgerMenu() {
-  return (
-    <div className="relative ">
-      <button type="button" className="absolute right-4 z-50">
-        <HamburgerIcon />
-      </button>
-      <div>
-        <div className=" flex flex-col justify-center items-center gap-4 text-xl p-4 mt-20 text-white font-semibold z-50">
-          <CartLink />
-          {/* <WishlistLink /> */}
-          <ProductsLinks />
+export default function HamburgerMenu() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    function handleToggle() {
+        setIsMenuOpen((prev) => !prev);
+    }
+    return (
+        <div className="relative ">
+            <Button
+                type="button"
+                className="absolute right-4 z-50 "
+                onClick={handleToggle}
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label="Toggle menu"
+            >
+                <Menu />
+            </Button>
+            <div
+                id="mobile-menu"
+                role="dialog"
+                aria-modal="true"
+                aria-hidden={!isMenuOpen}
+                className={`fixed top-0 right-0 h-full w-[60vw] bg-[#181313] transform transition-transform duration-300 ease-in-out ${
+                    isMenuOpen ? "translate-x-0" : "translate-x-full "
+                }`}
+            >
+                <div className=" flex flex-col justify-center items-center gap-4 text-xl p-4 mt-20 text-white font-semibold z-50">
+                    <CartLink />
+                    <ProductsLinks />
+                    <WishlistLink />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
-
-function HamburgerIcon() {
-  return (
-    <div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className={`size-8 $`}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-        />
-      </svg>
-    </div>
-  );
-}
-
-export default HamburgerMenu;

@@ -10,9 +10,8 @@ import {
     SetStateAction,
 } from "react";
 import { createContext, useContext } from "react";
-import productReducer from "./productReducer";
+import productReducer from "../reducer/productReducer";
 import queryDB from "@/helpers/queryDB";
-import { debounce } from "@/helpers/productData";
 
 interface Product {
     productId: number;
@@ -60,38 +59,24 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
     }
 
     const queryProducts = useCallback((val: string) => {
-        if (val === "5-50") {
-            return { min: 5, max: 50 };
-        } else if (val === "51-100") {
-            return {
-                min: 51,
-                max: 100,
-            };
-        } else if (val === "101-200") {
-            return {
-                min: 101,
-                max: 200,
-            };
-        } else if (val === "201-1000") {
-            return {
-                min: 201,
-                max: 2000,
-            };
-        } else if (val === "products") {
-            return {
-                min: 1,
-                max: 20000,
-            };
+        switch (val) {
+            case "5-50":
+                return { min: 5, max: 50 };
+            case "51-100":
+                return { min: 51, max: 100 };
+            case "101-200":
+                return { min: 101, max: 200 };
+            case "201-1000":
+                return { min: 201, max: 2000 };
+            case "products":
+                return { min: 1, max: 20000 };
+            default:
+                return { min: 1, max: 100000 };
         }
-
-        return {
-            min: 1,
-            max: 100000,
-        };
     }, []);
 
     useEffect(() => {
-        const fetchData = debounce(async () => {
+        const fetchData = async () => {
             isSetLoading(true);
             try {
                 const { min, max } = query;
@@ -105,7 +90,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
             } finally {
                 isSetLoading(false);
             }
-        }, 1000);
+        };
 
         fetchData();
     }, [query]);

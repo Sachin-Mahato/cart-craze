@@ -1,5 +1,5 @@
 "use client";
-import ProductsList from "@/components/ProductsList";
+import ProductsList from "@/app/products/ProductsList";
 import { useProductsContext } from "@/context/ProductsContext";
 import { ProductsTypes } from "@/types";
 

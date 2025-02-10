@@ -1,21 +1,13 @@
-// "use client";
-// /* eslint-disable no-var */
-// import useGlobalContext from "../../context/useGlobalContext";
-// import Link from "next/link";
-// function WishlistLink() {
-//   var { isMenuOpen } = useGlobalContext();
+import Link from "next/link";
 
-//   return (
-//     <>
-//       {isMenuOpen && (
-//         <Link href="/wishlist">
-//           <div>
-//             <p>Wishlist</p>
-//           </div>
-//         </Link>
-//       )}
-//     </>
-//   );
-// }
-
-// export default WishlistLink;
+export default function WishlistLink() {
+    return (
+        <>
+            <Link href={"/wishlist"}>
+                <div>
+                    <p>Wishlist</p>
+                </div>
+            </Link>
+        </>
+    );
+}

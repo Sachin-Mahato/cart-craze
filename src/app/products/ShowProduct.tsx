@@ -1,4 +1,4 @@
-import Products from "@/components/Products";
+import Products from "@/app/products/Products";
 
 export default function ShowProducts() {
     return <Products />;

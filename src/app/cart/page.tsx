@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer/Footer";
-import OderSummary from "@/components/OderSummary";
+import OderSummary from "@/app/cart/OderSummary";
 import CartItemsList from "./CartItemsList";
 function Cart() {
     return (

@@ -1,7 +1,7 @@
 import Image from "next/image.js";
-import CartButton from "./buttons/CartButton";
+import CartButton from "../../components/buttons/CartButton";
 import { ProductsTypes } from "@/types/index";
-import WishlistButton from "./buttons/WishlistButton";
+import WishlistButton from "../../components/buttons/WishlistButton";
 
 type ProductsListProps = {
     item: ProductsTypes;

@@ -23,3 +23,5 @@ export async function getCartData(url: string) {
         return null;
     }
 }
+
+export const formatPrice = (amount: number) => `$${amount.toFixed(2)}`;

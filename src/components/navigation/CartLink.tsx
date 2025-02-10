@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 
-function CartLink() {
+export default function CartLink() {
     return (
         <>
             {
@@ -15,5 +15,3 @@ function CartLink() {
         </>
     );
 }
-
-export default CartLink;
